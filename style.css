@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
+* {
+    box-sizing: content-box;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.container {
+    width: 100%;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.container_title {
+    padding: 20px 30px 20px 30px;
+}
+
+.container-bgc {
+    background-color: #0880D6;
+}
+
+.color_text {
+    color: #FFFFFF;
+}
+.title-fs {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+h2 {
+    text-align: center;
+}
+
+.container_contact {
+    display: flex;
+    gap: 15px;
+    width: 90%;
+    margin: auto;
+}
+
+.contact_div {
+    width: 50%;
+    border: 1px solid #DDDDDD;
+    margin-bottom: 50px;
+    padding-bottom: 60px;
+}
+
+.contact_title {
+    padding: 12px 0px 12px 0px
+}
+
+.contact_formulary {
+    padding: 14px 21px 30px 21px;
+}
+
+.formulary_input {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.formulary-list {
+    background-color: #FFFFFF;
+    width: 53vw;
+    height: 80vh;
+    border: 1px solid #DDDDDD;
+}
+
+.list-contact {
+    background-color: #FFFFFF;
+    
+}
+
+.form-control {
+    width: 100%;
+    border: 1px solid #DDDDDD;
+}
+
+.f_size {
+    font-size: 16px;
+}
+
+input {
+    height: 5vh;
+}
+
+.weight_medium {
+    font-weight: 500;
+}
+
+label {
+    color: #0880D6;
+}
+
+textarea {
+    height: 12vh;
+    resize: none;
+}
+
+
+
+#input_image {
+    width: 100%;
+    display: inline-block;
+    border: 2px dashed #DDDDDD;
+    text-align: center;
+    padding: 45px 0px 45px 0px;
+    color: black;
+}
+
+
+#input_upload{
+  display: none;  
+}
+
+.btn_div {
+    display: flex;
+    padding-left: 21px;
+    gap: 5vh;
+}
+
+.btn-submit {
+    background-color: #0880D6;
+    border: none;
+    padding: 10px 45px 10px 45px;
+}
+
+.btn-reset {
+    background-color: #FF3838;
+    border: none;
+    padding: 10px 45px 10px 45px;
+}
