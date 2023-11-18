@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carnet des contacts</title>
     <link rel="stylesheet" href="style.css">
+    <script src="index.js" defer></script>
 </head>
+
 <body>
     <section class="container">
         <header class="container_title container-bgc">
@@ -18,13 +21,17 @@
                 </div>
                 <div class="contact_formulary">
                     <div class="formulary_input">
-                        <div>
-                            <label class="weight_medium">Nom</label>
-                            <input class="input_info f_size" type="text">
+                        <div id="div_fn">
+                            <label class="weight_medium">Prénom</label>
+                            <input class="input_info f_size" type="text" id="first_name">
+                            <p class="p_fn_3">Nombre de caractére insuffisant, entrez plus de 2 caracteres</p>
+                            <p class="p_fn_50">Nombre de caractére execessif, entrez moins de 50 caracteres</p>
                         </div>
                         <div>
-                            <label class="weight_medium">Prénom</label>
-                            <input class="input_info f_size" type="text">
+                            <label class="weight_medium">Nom</label>
+                            <input class="input_info f_size" type="text" id="names">
+                            <p class="p_n_3">Nombre de caractére insuffisant, entrez plus de 2 caracteres</p>
+                            <p class="p_n_50">Nombre de caractére execessif, entrez moins de 50 caracteres</p>
                         </div>
                         <div>
                             <label class="weight_medium">Télephone</label>
@@ -51,7 +58,8 @@
                     </div>
                 </div>
                 <div class="contact_btn">
-                    <button type="submit" class="f_size btn_border color_text weight_medium container-bgc">Créer</button>
+                    <button type="submit"
+                        class="f_size btn_border color_text weight_medium container-bgc">Créer</button>
                     <button type="reset" class="f_size btn_border btn_reset color_text weight_medium">Rénit</button>
                 </div>
             </form>
@@ -65,4 +73,5 @@
         </main>
     </section>
 </body>
+
 </html>
