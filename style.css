@@ -69,6 +69,7 @@ h2 {
     border: 1px solid #DDDDDD;
     height: 40px;
     margin-top: 10px;
+    outline-color: #0880D6;
 }
 
 .f_size {
@@ -109,15 +110,11 @@ label {
 
 .btn_border {
     border: none;
-}
-
-.btn_submit {
     padding: 10px 45px 10px 45px;
 }
 
 .btn_reset {
     background-color: #FF3838;
-    padding: 10px 45px 10px 45px;
 }
 
 .contact_list {
@@ -130,11 +127,7 @@ label {
         flex-direction: column;
     }
 
-    .contact_form {
-        width: 100%;
-    }
-
-    .contact_list {
+    .contact_form, .contact_list{
         width: 100%;
     }
 
@@ -144,11 +137,7 @@ label {
         gap: 24px;
     }
 
-    .btn_submit {
-        width: 50%;
-    }
-
-    .btn_reset {
+    .btn_border {
         width: 50%;
     }
 }
