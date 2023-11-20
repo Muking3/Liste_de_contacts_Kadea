@@ -5,35 +5,28 @@ const object_contact = {
     numbers: document.querySelector("#numbers"),
     email: document.querySelector("#email"),
 }
-console.log(names);
-const p_fn_3 = document.querySelector(".p_fn_3")
-p_fn_3.hidden = true
-const p_fn_50 = document.querySelector(".p_fn_50")
-p_fn_50.hidden = true
+
+const message_fn = document.querySelector(".message_fn")
 first_name.addEventListener("blur", function () {
     if (first_name.value.length < 3 || first_name.value.length > 50) {
         first_name.style.border = "2px solid red"
         first_name.style.borderRadius = "5px"
         if (first_name.value.length < 3) {
-            p_fn_3.hidden = false
-            p_fn_50.hidden = true
+            message_fn.innerText = "Nombre de caractére insuffisant, entrez plus de 2 caracteres"
         }
         else {
-            p_fn_3.hidden = true
-            p_fn_50.hidden = false
+            message_fn.innerText = "Nombre de caractére execessif, entrez moins de 50 caracteres"
         }
     }
     else {
         first_name.style.border = ""
         first_name.style.borderRadius = ""
-        p_fn_3.hidden = true
-        p_fn_50.hidden = true
     }
 })
-const p_n_3 = document.querySelector(".p_n_3")
-p_n_3.hidden = true
-const p_n_50 = document.querySelector(".p_n_50")
-p_n_50.hidden = true
+// const p_n_3 = document.querySelector(".p_n_3")
+// p_n_3.hidden = true
+// const p_n_50 = document.querySelector(".p_n_50")
+// p_n_50.hidden = true
 names.addEventListener("blur", function () {
     if (names.value.length < 3 || names.value.length > 50) {
         names.style.border = "2px solid red"
