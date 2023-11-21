@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carnet des contacts</title>
     <link rel="stylesheet" href="style.css">
+    <script src="index.js" defer></script>
 
 </head>
 
@@ -21,24 +22,27 @@
                 </div>
                 <div class="contact_formulary">
                     <form class="formulary_input">
-                        <div>
-                            <label class="weight_medium">Nom</label>
-                            <input class="form-control f_size" type="text">
-                        </div>
-
+                
                         <div>
                             <label class="weight_medium">Prénom</label>
                             <input class="form-control f_size" type="text">
                         </div>
 
                         <div>
+                            <label class="weight_medium">Nom</label>
+                            <input class="form-control f_size" type="text" id="names" >
+                            <p id="message_n"></p>
+                        </div>
+
+                        <div>
                             <label class="weight_medium">Télephone</label>
-                            <input class="form-control f_size" type="text">
+                            <input class="form-control f_size" type="text" >
                         </div>
 
                         <div>
                             <label class="weight_medium">Groupe</label>
-                            <input class="form-control f_size" type="text">
+                            <input class="form-control f_size" type="text" id="groupe">
+                            <p id="text_g"></p>
                         </div>
 
                         <div class="form-group ">

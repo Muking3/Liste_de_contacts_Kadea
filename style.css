@@ -135,3 +135,13 @@ textarea {
     border: none;
     padding: 10px 45px 10px 45px;
 }
+
+#message_n{
+    color: red;
+    font-size: 12px;
+}
+
+#text_g {
+    color:red;
+    font-size: 12px;
+}
