@@ -143,16 +143,8 @@ label {
     }
 }
 
-/* .p_fn_3,
-.p_fn_50,
-.p_n_3,
-.p_n_50,
-.p_num,
-.p_num_v,
-.p_num_f,
-.p_num_u,
-.p_email, */
-#message_fn {
+#message_fn, #message_n, #message_g, #message_bio{
     font-size: 12px;
     color: red;
 }
+
