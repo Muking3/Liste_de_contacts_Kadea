@@ -6,8 +6,8 @@ const objet_contacts = {
 // Champs PRENOM
 let first_name = document.querySelector("#first_name")
 const message_fn = document.querySelector("#message_fn")
-first_name.addEventListener("blur", NAME)
-function NAME() {
+first_name.addEventListener("blur", FIRSTNAME)
+function FIRSTNAME() {
     if (first_name.value.length < 3 || first_name.value.length > 50) {
         first_name.style.border = "2px solid red"
         first_name.style.borderRadius = "5px"
