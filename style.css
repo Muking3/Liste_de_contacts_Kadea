@@ -156,3 +156,8 @@ label {
     font-size: 12px;
     color: red;
 }
+
+#message_bio {
+    color: #FF3838;
+    font-size: 12px;
+}
