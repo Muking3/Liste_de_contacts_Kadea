@@ -1,7 +1,6 @@
 let names =  document.getElementById('names');
 let groupe = document.getElementById('groupe');
-let b_mail = document.getElementById('b_mail')
-
+// let mail = document.getElementById('message_em')
 
 names.addEventListener('blur',function () {
     let message_n = document.getElementById('message_n')
@@ -43,28 +42,28 @@ names.addEventListener('blur',function () {
 
    function validateEmail(email) {
      
-      let email = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/i);
+      let email = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
       
       email.test(email);
    }
-
-   if (valider) {
-      return true
-   } else {
-      return false
-   }
-
-   if (validateEmail('testemail'
-   )){
-
-      document.querySelector('#message_mail').innerText="";
-
+   function valider() {
+      let message_em = $("#message_em").value();
+      let result = $('#result');
       
-   } else{
-      document.querySelector('#message_mail').innerText="";
+      message_em.text('');
+      result.text('');
 
+      if (validateEmail(email)) {
+
+         result.text( email + 'adresse valide !');
+         result.css('color', 'blue');
+         
+      }
+      else {
+         result.text( email + 'adresse invalide');
+         result.css('color', 'red');
+      }
    }
-
   
 
 
