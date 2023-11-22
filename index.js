@@ -1,4 +1,3 @@
-
 let names =  document.getElementById('names');
 let groupe = document.getElementById('groupe');
 let b_mail = document.getElementById('b_mail')
@@ -39,6 +38,34 @@ names.addEventListener('blur',function () {
     }
         
    });
+
+   // validation d'email
+
+   function validateEmail(email) {
+     
+      let email = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))/i);
+      
+      email.test(email);
+   }
+
+   if (valider) {
+      return true
+   } else {
+      return false
+   }
+
+   if (validateEmail('testemail'
+   )){
+
+      document.querySelector('#message_mail').innerText="";
+
+      
+   } else{
+      document.querySelector('#message_mail').innerText="";
+
+   }
+
+  
 
 
 
