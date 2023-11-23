@@ -64,6 +64,54 @@ function GROUP() {
     }
 }
 
+
+// validation d'mes_em
+let mes_em = document.querySelector('#email')
+// let str = "raciaciara@mail";
+
+
+mes_em.addEventListener('blur',function() {
+    let message_em= document.querySelector('#message_em')
+    let expression=/^[A-Za-z0-9_]+(\.)@[A-Za-z0-9]+(\.)[A-Za-z0-9]+$/
+// let expression = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let b_mail = expression.test(mes_em.value)
+    // if (b_mail) {
+    //     message_em.innerText = 'Adresse valide!';
+    //     message_em.style.color='rgb(71, 141, 71);'
+    //     mes_em.style.border = '2px solid green'
+    //     mes_em.style.bordeRaduis='5px'
+        
+    // } 
+
+    if (!b_mail) {
+        message_em.innerText = 'Adresse invalide!';
+        message_em.style.color='red'
+        mes_em.style.border = '2px solid red'
+        mes_em.style.borderRadius='5px'
+    }
+    
+    else {
+        message_em.innerText=''
+        mes_em.style.border = ''
+        mes_em.style.borderRadius=''
+    }
+    
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Champs BiO
 let bio = document.querySelector('#text_bio')
 bio.addEventListener('input', BIO)
@@ -83,3 +131,32 @@ function BIO() {
         message_bio.innerText = ''
     }
 }
+
+
+
+
+// function validatemes_em(mes_em) {
+// ex: /^\w+(.\w+)?@\w+.[A-Za-z0-9_].+$/i;
+     
+//     let mes_em = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,})+$/;
+    
+//     mes_em.test(mes_em);
+//  }
+//  function valider() {
+//     let message_em = $("#message_em").value();
+//     let result = $('#result');
+    
+//     message_em.text('');
+//     result.text('');
+
+//     if (validatemes_em(mes_em)) {
+
+//        result.text( mes_em + 'adresse valide !');
+//        result.css('color', 'blue');
+       
+//     }
+//     else {
+//        result.text( mes_em + 'adresse invalide');
+//        result.css('color', 'red');
+//     }
+//  }
