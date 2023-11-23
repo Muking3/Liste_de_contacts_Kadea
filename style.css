@@ -91,11 +91,15 @@ label {
 
 #input_image {
     width: 99.5%;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border: 2px dashed #DDDDDD;
     text-align: center;
-    padding: 45px 0px 45px 0px;
+    /* padding: 45px 0px 45px 0px; */
     color: black;
+    height: 138px;
 }
 
 #input_upload {
@@ -148,3 +152,9 @@ label {
     color: red;
 }
 
+#input_image img {
+    width: auto;
+    height: 100%;
+    /* object-fit: contain; */
+    border-radius: 5px;
+}
