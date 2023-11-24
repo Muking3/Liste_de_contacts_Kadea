@@ -86,10 +86,12 @@ function BIO() {
 
 const input_image = document.querySelector("#input_image")
 let input_upload = document.querySelector("#input_upload")
-// const message_img = document.querySelector("#message_img")
-input_image.onclick = () => {
-    input_upload.click()
-}
+const contact_img = document.querySelector("#contact_img")
+const message_img = document.querySelector("#message_img")
+const label_img = document.querySelector("#label_img")
+// input_image.onclick = () => {
+//     input_upload.click()
+// }
 
 input_image.addEventListener("dragover", (event) => {
     event.preventDefault()
@@ -102,8 +104,10 @@ input_image.addEventListener("dragleave", () => {
     input_image.style.border = ""
 })
 
-input_upload.addEventListener("change", () => {
+input_upload.addEventListener("change", (e) => {
     let imgs = input_upload.files[0]
+    // console.log(e);
+    label_img.style.display = "none"
     Show_img(imgs)
 })
 
@@ -117,8 +121,11 @@ function Show_img(file) {
         reader.onload = function () {
             let fileSource = reader.result
             console.log(fileSource);
-            input_image.innerHTML = `<img src="${fileSource}" alt="image_contact">`
+            contact_img.src = fileSource
         }
+    }
+    else {
+        message_img.innerText = 'fORMAT IMAGE INVALID'
     }
 }
 
