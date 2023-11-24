@@ -102,8 +102,9 @@ input_image.addEventListener("dragleave", () => {
 
 input_image.ondrop = (e) => {
     e.preventDefault()
-    const data = e.dataTransfer.getData("text/plain");
+    const data = e.dataTransfer.files[0];
     console.log(data);
+    Show_img(data)
     // // let imls = e.dataTransfer.files[0]
     // // console.log(imls.type)
     // // console.log('imls', event);
