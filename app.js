@@ -87,6 +87,7 @@ function BIO() {
 const input_image = document.querySelector("#input_image")
 let input_upload = document.querySelector("#input_upload")
 const message_img = document.querySelector("#message_img")
+const span = document.querySelector("#span")
 input_image.onclick = () => {
     input_upload.click()
 }
@@ -104,12 +105,9 @@ input_image.ondrop = (e) => {
     e.preventDefault()
     const data = e.dataTransfer.files[0];
     console.log(data);
-    if (typeof (data) == "undefined") {
-        let link = e.dataTransfer.getData("text");
-
-        input_image.innerHTML = `<img src="${link}" alt="image_contact">`
+    if (typeof (data) == "undefined" || data.type == "") {
+        span.innerHTML = "ERREUR DU NAVIGATEUR"
     }
-
     else {
         Show_img(data)
     }
@@ -120,10 +118,10 @@ input_upload.addEventListener("change", () => {
     Show_img(imgs)
 })
 function Show_img(file) {
-    // let fileType = file.type
-    // console.log(fileType)
-    // let tableRegex = /png$|jpe?g$/
-    // if (tableRegex.test(fileType)) {
+    let fileType = file.type
+    console.log(fileType)
+    let tableRegex = /png$|jpe?g$/
+    if (tableRegex.test(fileType)) {
         let reader = new FileReader()
         reader.readAsDataURL(file)
         reader.onload = function () {
@@ -131,5 +129,5 @@ function Show_img(file) {
             console.log(fileSource);
             input_image.innerHTML = `<img src="${fileSource}" alt="image_contact">`
         }
-    // }
+    }
 }
