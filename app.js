@@ -94,81 +94,160 @@ input_image.onclick = () => {
 input_image.addEventListener("dragover", (event) => {
     event.preventDefault()
     input_image.style.border = "2px solid #0880D6"
+    // event.dataTransfer.setData("text", event.target)
+    // console.log(dat);
 })
 
 input_image.addEventListener("dragleave", () => {
     input_image.style.border = ""
 })
 
-input_image.ondrop = (e) => {
-    e.preventDefault()
-    const data = e.dataTransfer.getData("text/plain");
-    console.log(data);
-    // // let imls = e.dataTransfer.files[0]
-    // // console.log(imls.type)
-    // // console.log('imls', event);
-    // if (e.dataTransfer) {
-    //     let imls = e.dataTransfer.setData('text', e.target.id);
-    //     Show_img(imls)
-    // }
-    // else if (e.originalEvent.dataTransfer) {
-    //     let imls = e.originalEvent.dataTransfer.setData('text', e.target.id);
-    //     Show_img(imls)
-    // }
-}
-// const ed = document.querySelector(".ed")
-// input_image.innerText = "Deposer la photo \nici"
 input_upload.addEventListener("change", () => {
     let imgs = input_upload.files[0]
     Show_img(imgs)
 })
-// function Show_img(file) {
-//     // console.log(file);
-//     //  console.log(this.files);
-//     let fileType = file.type
-//     console.log(fileType)
-//     let tableRegex = /png$|jpe?g$/
-//     if (tableRegex.test(fileType)) {
-//         // console.log("vb");
-//         let reader = new FileReader()
-//         reader.readAsDataURL(file)
-//         reader.onload = function () {
-//             let fileSource = reader.result
-//             console.log(fileSource);
-//             input_image.innerHTML = `<img src="${fileSource}" alt="image_contact">`
-//             // message_img.src = fileSource
-//             // message_img.style.
-//             // input_image.style.padding = '0px 0px 0px 0px'
-//             // input_image.innerText = ""
-//         }
-//     }
-//     // else {
-//     //     input_image.style.border = "2px solid red"
-//     //     input_image.style.borderRadius = "5px"
-//     //     message_img.innerText = "Inserer une images avec un format valide soit png soit jpg"
-//     // }
-// }
+
+function Show_img(file) {
+    let fileType = file.type
+    console.log(fileType)
+    let tableRegex = /png$|jpe?g$/
+    if (tableRegex.test(fileType)) {
+        let reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = function () {
+            let fileSource = reader.result
+            console.log(fileSource);
+            input_image.innerHTML = `<img src="${fileSource}" alt="image_contact">`
+        }
+    }
+}
 
 
-// ed.addEventListener("drop", function () {
-//     let file = this.files[0]
-//     //  console.log(file);
-//     //  console.log(this.files);
-//     let fileType = file.type
-//     // console.log(fileType)
-//     let tableFile = ['image/png', 'image/jpg']
-//     if (tableFile.includes(fileType)) {
-//         let reader = new FileReader()
-//         reader.readAsDataURL(file)
-//         reader.onload = function () {
-//             let fileSource = reader.result
-//             console.log(fileSource);
-//             message_img.innerHTML = `<img src="${fileSource}" alt="image">`
-//         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// input_image.ondrop = (e) => {
+//     e.preventDefault()
+//     let imls = e.dataTransfer.files
+//     console.log(e)
+//     console.log(typeof (imls));
+//     if (typeof (imls) == "undefined") {
+
+//         const data = e.dataTransfer.getData("text");
+//         // const data = e.dataTransfer.getData("text");
+//         console.log(data);
+//         input_image.innerHTML = `<img src="${data}" alt="image_contact">`
 //     }
 //     else {
-//         input_image.style.border = "2px solid red"
-//         input_image.style.borderRadius = "5px"
-//         message_img.innerText = "Inserer une images avec un format valide soit png soit jpg"
+//         e.preventDefault()
+//         let imls = e.dataTransfer.files[0]
+//         // console.log(imls.type)
+//         // console.log('imls', event);
+//         Show_img(imls)
+//         // // let imls = e.dataTransfer.files[0]
+//         // // console.log(imls.type)
+//         // // console.log('imls', event);
+//         // if (e.dataTransfer) {
+//         //     let imls = e.dataTransfer.setData('text', e.target.id);
+//         //     Show_img(imls)
+//         // }
+//         // else if (e.originalEvent.dataTransfer) {
+//         //     let imls = e.originalEvent.dataTransfer.setData('text', e.target.id);
+//         //     Show_img(imls)
+//         // }
 //     }
-// })
+// }
+//     // const ed = document.querySelector(".ed")
+//     // input_image.innerText = "Deposer la photo \nici"
+//     input_upload.addEventListener("change", () => {
+//         let imgs = input_upload.files[0]
+//         Show_img(imgs)
+//     })
+//     function Show_img(file) {
+//         // console.log(file);
+//         //  console.log(this.files);
+//         let fileType = file.type
+//         console.log(fileType)
+//         let tableRegex = /png$|jpe?g$/
+//         if (tableRegex.test(fileType)) {
+//             // console.log("vb");
+//             let reader = new FileReader()
+//             reader.readAsDataURL(file)
+//             reader.onload = function () {
+//                 let fileSource = reader.result
+//                 console.log(fileSource);
+//                 input_image.innerHTML = `<img src="${fileSource}" alt="image_contact">`
+//                 // message_img.src = fileSource
+//                 // message_img.style.
+//                 // input_image.style.padding = '0px 0px 0px 0px'
+//                 // input_image.innerText = ""
+//             }
+//         }
+//         // else {
+//         //     input_image.style.border = "2px solid red"
+//         //     input_image.style.borderRadius = "5px"
+//         //     message_img.innerText = "Inserer une images avec un format valide soit png soit jpg"
+//         // }
+//     }
+
+
+// // ed.addEventListener("drop", function () {
+// //     let file = this.files[0]
+// //     //  console.log(file);
+// //     //  console.log(this.files);
+// //     let fileType = file.type
+// //     // console.log(fileType)
+// //     let tableFile = ['image/png', 'image/jpg']
+// //     if (tableFile.includes(fileType)) {
+// //         let reader = new FileReader()
+// //         reader.readAsDataURL(file)
+// //         reader.onload = function () {
+// //             let fileSource = reader.result
+// //             console.log(fileSource);
+// //             message_img.innerHTML = `<img src="${fileSource}" alt="image">`
+// //         }
+// //     }
+// //     else {
+// //         input_image.style.border = "2px solid red"
+// //         input_image.style.borderRadius = "5px"
+// //         message_img.innerText = "Inserer une images avec un format valide soit png soit jpg"
+// //     }
+// // })
