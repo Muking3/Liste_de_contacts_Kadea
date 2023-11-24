@@ -104,7 +104,15 @@ input_image.ondrop = (e) => {
     e.preventDefault()
     const data = e.dataTransfer.files[0];
     console.log(data);
-    Show_img(data)
+    if (typeof (data) == "undefined") {
+        let link = e.dataTransfer.getData("text");
+
+        input_image.innerHTML = `<img src="${link}" alt="image_contact">`
+    }
+
+    else {
+        Show_img(data)
+    }
 }
 
 input_upload.addEventListener("change", () => {
@@ -112,10 +120,10 @@ input_upload.addEventListener("change", () => {
     Show_img(imgs)
 })
 function Show_img(file) {
-    let fileType = file.type
-    console.log(fileType)
-    let tableRegex = /png$|jpe?g$/
-    if (tableRegex.test(fileType)) {
+    // let fileType = file.type
+    // console.log(fileType)
+    // let tableRegex = /png$|jpe?g$/
+    // if (tableRegex.test(fileType)) {
         let reader = new FileReader()
         reader.readAsDataURL(file)
         reader.onload = function () {
@@ -123,5 +131,5 @@ function Show_img(file) {
             console.log(fileSource);
             input_image.innerHTML = `<img src="${fileSource}" alt="image_contact">`
         }
-    }
+    // }
 }
