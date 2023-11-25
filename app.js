@@ -102,7 +102,7 @@ input_image.addEventListener("dragleave", () => {
     input_image.style.border = ""
 })
 
-input_upload.addEventListener("change", () => {
+input_upload.addEventListener("drop", () => {
     let imgs = input_upload.files[0]
     // label_img.style.display = "none"
     Show_img(imgs)
@@ -119,8 +119,8 @@ function Show_img(file) {
             let fileSource = reader.result
             console.log(fileSource);
             // contact_img.src = fileSource
-            // img.innerHTML = `<img src="${fileSource}" alt="image_contact">`
-            input_image.style.backgroundImage = `url("${fileSource}")`
+            img.innerHTML = `<img src="${fileSource}" alt="image_contact">`
+            // input_image.style.backgroundImage = `url("${fileSource}")`
         }
     }
     else {
