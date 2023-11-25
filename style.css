@@ -103,7 +103,11 @@ label {
 }
 
 #input_upload {
-    display: none;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    /* display: none; */
+    /* z-index: -1; */
 }
 
 .contact_btn {
@@ -147,14 +151,28 @@ label {
     }
 }
 
-#message_fn, #message_n, #message_g, #message_bio{
+#message_fn,
+#message_n,
+#message_g,
+#message_bio {
     font-size: 12px;
     color: red;
 }
 
+#f{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 #input_image img {
-    width: auto;
-    height: 100%;
+    width: 10%;
+    
     /* object-fit: contain; */
     border-radius: 5px;
+    position: absolute;
+}
+#label_img{
+    position: absolute;
+    background-image: url();
 }
