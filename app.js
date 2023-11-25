@@ -87,8 +87,7 @@ function BIO() {
 const input_image = document.querySelector("#input_image")
 let input_upload = document.querySelector("#input_upload")
 const message_img = document.querySelector("#message_img")
-const contact_img = document.querySelector("#contact_img")
-
+const span = document.querySelector("#span")
 input_image.onclick = () => {
     input_upload.click()
 }
@@ -102,12 +101,22 @@ input_image.addEventListener("dragleave", () => {
     input_image.style.border = ""
 })
 
-input_upload.addEventListener("drop", () => {
+input_image.ondrop = (e) => {
+    e.preventDefault()
+    const data = e.dataTransfer.files[0];
+    console.log(data);
+    if (typeof (data) == "undefined" || data.type == "") {
+        span.innerHTML = "ERREUR DU NAVIGATEUR"
+    }
+    else {
+        Show_img(data)
+    }
+}
+
+input_upload.addEventListener("change", () => {
     let imgs = input_upload.files[0]
-    // label_img.style.display = "none"
     Show_img(imgs)
 })
-
 function Show_img(file) {
     let fileType = file.type
     console.log(fileType)
@@ -118,16 +127,7 @@ function Show_img(file) {
         reader.onload = function () {
             let fileSource = reader.result
             console.log(fileSource);
-            // contact_img.src = fileSource
-            img.innerHTML = `<img src="${fileSource}" alt="image_contact">`
-            // input_image.style.backgroundImage = `url("${fileSource}")`
+            input_image.innerHTML = `<img src="${fileSource}" alt="image_contact">`
         }
     }
-    else {
-        console.log(fileType)
-        input_image.style.border = "2px solid red"
-        message_img.innerText = "format de l'image invalide"
-    }
 }
-
-
