@@ -1,17 +1,46 @@
 const array_contact = []
-const objet_contacts = {
 
-}
+const form = document.querySelector("form")
+form.addEventListener("keypress", function (e) {
+    if (e.key === 'Enter') {
+        e.preventDefault()
+    }
+})
+form.addEventListener("submit", function (e) {
+    e.preventDefault()
+    const data = new FormData(form)
+    // console.log(data.get("names"));
+    // console.log(data.get("numbers"));
+    const objet_contacts = Object.fromEntries(data)
+    array_contact.push(objet_contacts)
+    console.log(objet_contacts);
+    console.log(array_contact);
+
+
+    // Creation variable
+    const First_Name = objet_contacts.First_Name
+    // console.log(first_name.length);
+    FIRSTNAME(First_Name)
+    const Names = objet_contacts.Names
+    const Numbers = objet_contacts.Numbers
+    const Groups = objet_contacts.Groups
+    const Email = objet_contacts.Email
+    const Bio = objet_contacts.Bio
+
+
+})
+
 
 // Champs PRENOM
 let first_name = document.querySelector("#first_name")
 const message_fn = document.querySelector("#message_fn")
-first_name.addEventListener("blur", FIRSTNAME)
-function FIRSTNAME() {
-    if (first_name.value.length < 3 || first_name.value.length > 50) {
+// first_name.addEventListener("blur", FIRSTNAME(first_name.value))
+function FIRSTNAME(f_n) {
+    if (f_n.length < 3 || f_n.length > 50) {
+        // console.log("co");
         first_name.style.border = "2px solid red"
         first_name.style.borderRadius = "5px"
-        if (first_name.value.length < 3) {
+        if (f_n.length < 3) {
             message_fn.innerText = "Nombre de caractére insuffisant, entrez plus de 2 caracteres"
         }
         else {
@@ -95,6 +124,7 @@ input_image.onclick = () => {
 input_image.addEventListener("dragover", (event) => {
     event.preventDefault()
     input_image.style.border = "2px solid #0880D6"
+    input_image.style.borderRadius = "5px"
 })
 
 input_image.addEventListener("dragleave", () => {
@@ -107,6 +137,8 @@ input_image.ondrop = (e) => {
     console.log(data);
     if (typeof (data) == "undefined" || data.type == "") {
         span.innerHTML = "ERREUR DU NAVIGATEUR"
+        input_image.style.border = "2px solid red"
+        input_image.style.borderRadius = "5px"
     }
     else {
         Show_img(data)
@@ -119,15 +151,78 @@ input_upload.addEventListener("change", () => {
 })
 function Show_img(file) {
     let fileType = file.type
-    console.log(fileType)
+    console.log(file.size)
     let tableRegex = /png$|jpe?g$/
-    if (tableRegex.test(fileType)) {
+    if (tableRegex.test(fileType) && file.size < 2000) {
         let reader = new FileReader()
         reader.readAsDataURL(file)
         reader.onload = function () {
             let fileSource = reader.result
             console.log(fileSource);
             input_image.innerHTML = `<img src="${fileSource}" alt="image_contact">`
+            message_img.innerText = ""
+            input_image.style.border = ""
         }
     }
+    else if (!tableRegex.test(fileType)) {
+        console.log(fileType)
+        input_image.style.border = "2px solid red"
+        input_image.style.borderRadius = "5px"
+        message_img.innerText = "Format de l'image invalide"
+        input_image.innerHTML = `<span class="weight_medium" id="span">
+        Deposer la photo <br>ici
+    </span>`
+    }
+    else if (file.size > 2000) {
+        console.log(fileType)
+        input_image.style.border = "2px solid red"
+        input_image.style.borderRadius = "5px"
+        message_img.innerText = "Taille de l'image depasse 5Mo"
+        input_image.innerHTML = `<span class="weight_medium">
+        Deposer la photo <br>ici
+    </span>`
+    }
 }
+
+
+
+
+
+
+
+
+
+
+const submit = document.querySelector("#submit")
+submit.addEventListener("click", creatContact)
+function creatContact() {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

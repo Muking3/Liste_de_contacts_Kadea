@@ -23,45 +23,47 @@
                     <div class="formulary_input">
                         <div id="div_fn">
                             <label class="weight_medium">Prénom</label>
-                            <input class="input_info f_size" type="text" id="first_name">
+                            <input class="input_info f_size" type="text" id="first_name"  name="First_Name">
                             <span id="message_fn"></span>
                         </div>
                         <div>
                             <label class="weight_medium">Nom</label>
-                            <input class="input_info f_size" type="text" id="names">
+                            <input class="input_info f_size" type="text" id="names" name="Names">
                             <span id="message_n"></span>
                         </div>
                         <div>
                             <label class="weight_medium">Télephone</label>
-                            <input class="input_info f_size" type="text" id="numbers">
+                            <input class="input_info f_size" type="text" id="numbers" name="Numbers">
                         </div>
                         <div>
                             <label class="weight_medium">Groupe</label>
-                            <input class="input_info f_size" type="text" id="group">
+                            <input class="input_info f_size" type="text" id="group" name="Group">
                             <span id="message_g"></span>
                         </div>
                         <div>
                             <label class="weight_medium">email</label>
-                            <input class="input_info f_size" type="text" id="email">
+                            <input class="input_info f_size" type="text" id="email" name="Email">
                         </div>
                         <div>
                             <label class="weight_medium">Bio</label>
-                            <textarea class="input_info f_size" id="text_bio"></textarea>
+                            <textarea class="input_info f_size" id="text_bio" name="Bio"></textarea>
                             <span id="message_bio"></span>
                         </div>
-                        <div id="input_image">
-                            <span class="weight_medium" id="span">
-                                Deposer la photo <br>ici
-                            </span>
-                            <input type="file" id="input_upload">
+                        <div>
+                            <div id="input_image">
+                                <span class="weight_medium" id="span">
+                                    Deposer la photo <br>ici
+                                </span>
+                                <input type="file" id="input_upload">
+                                <!-- <img src="#" alt="photo_contact" id="message_img"> -->
+                            </div>
                             <span id="message_img"></span>
-                            <!-- <img src="#" alt="photo_contact" id="message_img"> -->
                         </div>
                     </div>
                 </div>
                 <div class="contact_btn">
                     <button type="submit"
-                        class="f_size btn_border color_text weight_medium container-bgc">Créer</button>
+                        class="f_size btn_border color_text weight_medium container-bgc" id="submit">Créer</button>
                     <button type="reset" class="f_size btn_border btn_reset color_text weight_medium">Rénit</button>
                 </div>
             </form>

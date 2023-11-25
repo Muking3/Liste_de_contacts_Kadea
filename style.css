@@ -147,7 +147,7 @@ label {
     }
 }
 
-#message_fn, #message_n, #message_g, #message_bio{
+#message_fn, #message_n, #message_g, #message_bio, #message_img{
     font-size: 12px;
     color: red;
 }
