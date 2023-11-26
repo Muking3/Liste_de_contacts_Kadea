@@ -1,5 +1,13 @@
 const array_contact = []
 
+
+
+const first_name = document.getElementById('first_name')
+const names = document.getElementById('names')
+const message_fn = document.querySelector("#message_fn")
+const message_n = document.querySelector("#message_n")
+
+
 const form = document.querySelector("form")
 form.addEventListener("keypress", function (e) {
     if (e.key === 'Enter') {
@@ -9,72 +17,95 @@ form.addEventListener("keypress", function (e) {
 form.addEventListener("submit", function (e) {
     e.preventDefault()
     const data = new FormData(form)
-    // console.log(data.get("names"));
-    // console.log(data.get("numbers"));
     const objet_contacts = Object.fromEntries(data)
-    array_contact.push(objet_contacts)
     console.log(objet_contacts);
     console.log(array_contact);
 
 
     // Creation variable
     const First_Name = objet_contacts.First_Name
-    // console.log(first_name.length);
-    FIRSTNAME(First_Name)
+    // console.log(First_Name.length);
     const Names = objet_contacts.Names
     const Numbers = objet_contacts.Numbers
     const Groups = objet_contacts.Groups
     const Email = objet_contacts.Email
     const Bio = objet_contacts.Bio
-
-
+    // if (IDENTITY(First_Name, first_name, message_fn) && IDENTITY(Names, names, message_n)) {
+    //     array_contact.push(objet_contacts)
+    // }
+    if (IDENTITY() && IDENTITi()) {
+        array_contact.push(objet_contacts)
+    }
 })
 
 
-// Champs PRENOM
-let first_name = document.querySelector("#first_name")
-const message_fn = document.querySelector("#message_fn")
-// first_name.addEventListener("blur", FIRSTNAME(first_name.value))
-function FIRSTNAME(f_n) {
+// Champs IDENTITY (PRENOM, NOM)
+
+first_name.addEventListener("blur", IDENTITY)
+function IDENTITY() {
+    let f_n = first_name.value
+    let identity = first_name
+    let message = message_fn
     if (f_n.length < 3 || f_n.length > 50) {
-        // console.log("co");
-        first_name.style.border = "2px solid red"
-        first_name.style.borderRadius = "5px"
+        identity.style.border = "2px solid red"
+        identity.style.borderRadius = "5px"
         if (f_n.length < 3) {
-            message_fn.innerText = "Nombre de caractére insuffisant, entrez plus de 2 caracteres"
+            message.innerText = "Nombre de caractére insuffisant, entrez plus de 2 caracteres"
         }
         else {
-            message_fn.innerText = "Nombre de caractére execessif, entrez moins de 50 caracteres"
+            message.innerText = "Nombre de caractére execessif, ne doit pas aller au-dèla de 50"
         }
     }
     else {
-        first_name.style.border = ""
-        first_name.style.borderRadius = ""
-        message_fn.innerText = ""
+        identity.style.border = ""
+        identity.style.borderRadius = ""
+        message.innerText = ""
+        return true
     }
 }
 
-//Champs NOM
-let names = document.getElementById('names')
-names.addEventListener('blur', NAME)
-function NAME() {
-    let message_n = document.getElementById('message_n')
-    if (names.value.length < 3) {
-        message_n.innerText = "Nombre de caractere insuffisant, ne doit pas etre inférieur à 3"
-        names.style.border = '2px solid red'
-        names.style.borderRadius = '5px'
-    }
-    else if (names.value.length > 50) {
-        message_n.innerText = 'Le nombre de caractères ne doit pas aller au-dèla de 50'
-        names.style.border = '2px solid red'
-        names.style.borderRadius = '5px'
+
+names.addEventListener("blur", IDENTITi)
+function IDENTITi() {
+    let f_n = names.value
+    let identity = names
+    let message = message_n
+    if (f_n.length < 3 || f_n.length > 50) {
+        identity.style.border = "2px solid red"
+        identity.style.borderRadius = "5px"
+        if (f_n.length < 3) {
+            message.innerText = "Nombre de caractére insuffisant, entrez plus de 2 caracteres"
+        }
+        else {
+            message.innerText = "Nombre de caractére execessif, ne doit pas aller au-dèla de 50"
+        }
     }
     else {
-        message_n.innerText = ''
-        names.style.border = ''
-        names.style.borderRadius = ''
+        identity.style.border = ""
+        identity.style.borderRadius = ""
+        message.innerText = ""
+        return true
     }
 }
+// console.log(IDENTITY);
+// function IDENTITY(f_n, identity, message) {
+//     if (f_n.length < 3 || f_n.length > 50) {
+//         identity.style.border = "2px solid red"
+//         identity.style.borderRadius = "5px"
+//         if (f_n.length < 3) {
+//             message.innerText = "Nombre de caractére insuffisant, entrez plus de 2 caracteres"
+//         }
+//         else {
+//             message.innerText = "Nombre de caractére execessif, ne doit pas aller au-dèla de 50"
+//         }
+//     }
+//     else {
+//         identity.style.border = ""
+//         identity.style.borderRadius = ""
+//         message.innerText = ""
+//         return true
+//     }
+// }
 
 //Champs GROUP
 let group = document.getElementById('group')
