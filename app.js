@@ -120,11 +120,11 @@ function BIO() {
 
 // Reinitialisation de formulaire.
 let reset = document.getElementById('reset')
-reset.addEventListener('click', function()){
+reset.addEventListener('click', function() {
     let Reinit = document.getElementById('Reinit')
     Reinit.addEventListener('click', Reinit)
     Reinit.addEventListener('mouseover', changeCouleur);
-}
+})
 
 // reset.addEventListener('mouseover', changeCouleur);
 // reset.addEventListener('mouseover', function(){this.style.fontWeight ='bold'});
