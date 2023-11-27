@@ -27,21 +27,21 @@ function FIRSTNAME() {
 
 //Champs NOM
 let names = document.getElementById('names')
-names.addEventListener('blur',NAME)
+names.addEventListener('blur', NAME)
 function NAME() {
     let message_n = document.getElementById('message_n')
-    if (names.value.length < 3 ) {
-      message_n.innerText="Nombre de caractere insuffisant, ne doit pas etre inférieur à 3"
-      names.style.border = '2px solid red'
-      names.style.borderRadius = '5px'
-    }
-     else if (names.value.length > 50) {
-        message_n.innerText='Le nombre de caractères ne doit pas aller au-dèla de 50'
+    if (names.value.length < 3) {
+        message_n.innerText = "Nombre de caractere insuffisant, ne doit pas etre inférieur à 3"
         names.style.border = '2px solid red'
         names.style.borderRadius = '5px'
-     }
-     else {
-        message_n.innerText=''
+    }
+    else if (names.value.length > 50) {
+        message_n.innerText = 'Le nombre de caractères ne doit pas aller au-dèla de 50'
+        names.style.border = '2px solid red'
+        names.style.borderRadius = '5px'
+    }
+    else {
+        message_n.innerText = ''
         names.style.border = ''
         names.style.borderRadius = ''
     }
@@ -49,7 +49,7 @@ function NAME() {
 
 //Champs GROUP
 let group = document.getElementById('group')
-group.addEventListener('blur',GROUP)
+group.addEventListener('blur', GROUP)
 function GROUP() {
     let message_g = document.getElementById('message_g')
     if (group.value.length >= 10) {
@@ -83,3 +83,44 @@ function BIO() {
         message_bio.innerText = ''
     }
 }
+
+// NUMBERS
+
+let numbers = document.querySelector('#numbers');
+numbers.addEventListener('blur', NUMBERS);
+let numberssExistants = [];
+function NUMBERS() {
+    let numbers = this.value;
+    let message_num = document.getElementById('message_num');
+    let prefixes = ['084', '085', '080', '089', 'O81', '082', '099', '097', '090'];
+    //Caractères
+    if (isNaN(numbers)) {
+        this.style.border = '2px solid red';
+        this.style.borderRadius = "5px";
+        message_num.innerHTML = 'le numero de téléphone ne contient que des chiffres';
+    }
+     //Taille
+    else if (this.value.length < 10 || this.value.length > 10) {
+        this.style.border = '2px solid red';
+        this.style.borderRadius = "5px";
+        message_num.innerText = 'Erreur, renseigner un numéro de téléphone avec 10 chiffres ';
+    }
+    // Vérification du préfixe du numéro
+    else if (!prefixes.some(prefix => numbers.startsWith(prefix))) {
+        this.style.border = "1px solid red";
+        this.style.borderRadius = "5px";
+        message_num.innerHTML = "renseigner un numéro de téléphone au format valide";
+    }
+    // Vérification de l'existence du numéro
+    else if (numberssExistants.includes(numbers)) {
+        this.style.border = "1px solid red";
+        this.style.borderRadius = "5px";
+        message_num.innerHTML = "Le numéro existe déjà.";
+    }//validation
+    else {
+        this.style.border = ""
+        message_num.innerHTML = ""
+    }
+}
+
+
