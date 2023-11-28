@@ -147,8 +147,10 @@ label {
     font-size: 12px;
     color: red;
 }
-
-/* #Reinit , onhover {
-    color: green;
+/* 
+#reinit:hover {
+    background-color: white;
+    border: 1px solid #FF3838;
+    color: #FF3838;
 } */
 
