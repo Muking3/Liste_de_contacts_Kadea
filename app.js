@@ -113,27 +113,21 @@ function BIO() {
 }
 
 // Reinitialisation de formulaire.
-let reinit = document.querySelector('#reinit');
-reinit.addEventListener('click', function () {
-  first_name.value = '';
-  names.value = '';
-  Number.value = '';
-  group.value = '';
-  email.value = '';
-  bio.value = '';
+let reset = document.getElementById('reset')
+reset.addEventListener('click', function() {
+    let Reinit = document.getElementById('Reinit')
+    Reinit.addEventListener('click', Reinit)
+    Reinit.addEventListener('mouseover', changeCouleur);
+})
 
-  reinit.style.borderRadius = 'none';
-});
+// reset.addEventListener('mouseover', changeCouleur);
+// reset.addEventListener('mouseover', function(){this.style.fontWeight ='bold'});
+// reset.getElementById('onclick', reset)
 
-function changeCouleur() {
-  reset.style.backgroundColor = 'green';
-}
-reset.addEventListener('mousedown', change);
-function change() {
-  reset.style.backgroundColor = '';
-}
-// Annulation & Suppression
 
-function confirm() {
-  let Suppression = confirme('Etes-vous sùr de vouloir supprimer?');
-}
+// function () {
+//     if (condition) {
+        
+//     }
+    
+// }
