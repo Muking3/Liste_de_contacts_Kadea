@@ -127,6 +127,7 @@ drop_image.ondrop = (e) => {
 
 input_img.addEventListener("change", () => {
     let imgs = input_img.files[0]
+    console.log(imgs);
     // objet(imgs)
     objet = imgs
     Show_img(imgs)
