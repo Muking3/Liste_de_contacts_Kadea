@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="style.css">
     <script src="app.js" defer></script>
 </head>
-
 <body>
     <section class="container">
         <header class="container_title container-bgc">
@@ -23,78 +22,54 @@
                     <div class="formulary_input">
                         <div id="div_fn">
                             <label class="weight_medium">Prénom</label>
-                            <input class="input_info f_size" type="text" id="first_name" name="First_Name">
+                            <input class="input_info f_size" type="text" id="first_name">
                             <span id="message_fn"></span>
                         </div>
                         <div>
                             <label class="weight_medium">Nom</label>
-                            <input class="input_info f_size" type="text" id="names" name="Names">
+                            <input class="input_info f_size" type="text" id="names">
                             <span id="message_n"></span>
                         </div>
                         <div>
                             <label class="weight_medium">Télephone</label>
-                            <input class="input_info f_size" type="text" id="numbers" name="Numbers">
+                            <input class="input_info f_size" type="text" id="numbers">
                         </div>
                         <div>
                             <label class="weight_medium">Groupe</label>
-                            <input class="input_info f_size" type="text" id="group" name="Group">
+                            <input class="input_info f_size" type="text" id="group">
                             <span id="message_g"></span>
                         </div>
                         <div>
                             <label class="weight_medium">email</label>
-                            <input class="input_info f_size" type="text" id="email" name="Email">
+                            <input class="input_info f_size" type="text" id="email">
                         </div>
                         <div>
                             <label class="weight_medium">Bio</label>
-                            <textarea class="input_info f_size" id="text_bio" name="Bio"></textarea>
+                            <textarea class="input_info f_size" id="text_bio"></textarea>
                             <span id="message_bio"></span>
                         </div>
-                        <div>
-                            <div id="drop_image">
-                                <p class="weight_medium" id="span">
-                                    Deposer la photo <br>ici
-                                </p>
-                                <input type="file" id="input_img">
-                                <!-- <img src="#" alt="photo_contact" id="message_img"> -->
-                            </div>
+                        <div id="input_image">
+                            <!-- <label  class="weight_medium" id="label_img">
+                                Deposer la photo <br>ici
+                            </label> -->
+                            <input type="file" id="input_upload">
+                                <!-- <span id="message_img"></span> -->
+                            <img src="#" id="contact_img">
                             <span id="message_img"></span>
                         </div>
                     </div>
                 </div>
                 <div class="contact_btn">
-                    <button type="submit" class="f_size btn_border color_text weight_medium container-bgc"
-                        id="submit">Créer</button>
+                    <button type="submit"
+                        class="f_size btn_border color_text weight_medium container-bgc">Créer</button>
                     <button type="reset" class="f_size btn_border btn_reset color_text weight_medium">Rénit</button>
                 </div>
             </form>
-            <div class="contact_box_list">
+            <div class="contact_list">
+                <div class="contact_title container-bgc">
+                    <h2 class="title-fs color_text">Liste des contacts</h2>
+                </div>
                 <div>
-                    <div class="contact_title container-bgc">
-                        <h2 class="title-fs color_text">Liste des contacts</h2>
-                    </div>
-                    <!-- <div class="contact_list">
-                        <div class="contact_list_img">
-                            <img src="/home/user-30-c1/Images/robbie-lens.png" alt="photo du contact">
-                        </div>
-                        <div class="contact_list_text">
-                            <div>
-                                <div class="contact_text">
-                                    <p>Marc-Famille</p>
-                                    <div>
-                                        <img id="space_between_icon" src="edit icon.svg"
-                                            alt="icone modifier">
-                                        <img src="delete icon.svg"
-                                            alt="icone supprimer">
-                                    </div>
-                                </div>
-                                <div>
-                                    <p id="paragraph_num_email">090123409-maerc@jhg.com</p>
-                                    <p id="paragraph_bio">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi iure praesentium
-                                        reprehenderit consequatur magnam voluptas minus fuga quas sapiente nulla.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </main>
