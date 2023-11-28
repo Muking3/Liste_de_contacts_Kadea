@@ -60,21 +60,14 @@ function GROUP() {
     group.style.bordeRaduis = '';
   }
 }
-// validation d' e-mail
 
+// validation d' e-mail
 let email = document.querySelector('#email');
 let message_em = document.querySelector('#message_em');
 let mailExistant = [];
 email.addEventListener('blur', function () {
   let Regex = /^[A-Za-z0-9\.]+@[A-Za-z0-9]+(\.)[A-Za-z0-9]{2,}$/;
   let b_mail = Regex.test(email.value);
-  // if (b_mail) {
-  //     message_em.innerText = 'Adresse valide!';
-  //     message_em.style.color='rgb(71, 141, 71);'
-  //     email.style.border = '2px solid green'
-  //     email.style.bordeRaduis='5px'
-  // }
-
   if (!b_mail) {
     message_em.innerText = 'Adresse invalide!';
     message_em.style.color = 'red';
@@ -91,6 +84,7 @@ email.addEventListener('blur', function () {
     email.style.borderRadius = '';
   }
 });
+
 //Champs BiO
 let bio = document.querySelector('#text_bio');
 let message_bio = document.getElementById('message_bio');
