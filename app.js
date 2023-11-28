@@ -61,7 +61,7 @@ function GROUP() {
   }
 }
 
-// validation d' e-mail
+// Champ E-MAIL
 let email = document.querySelector('#email');
 let message_em = document.querySelector('#message_em');
 let mailExistant = [];
@@ -126,24 +126,3 @@ reinit.addEventListener('click', function () {
   bio.style.border = '';
   message_bio.innerText = '';
 });
-
-function changeCouleur() {
-  reset.style.backgroundColor = 'green';
-}
-reset.addEventListener('mousedown', change);
-function change() {
-  reset.style.backgroundColor = '';
-}
-
-
-
-
-
-
-
-
-// Annulation & Suppression
-
-// function confirm() {
-//   let Suppression = confirme('Etes-vous sùr de vouloir supprimer?');
-// }
