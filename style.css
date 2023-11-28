@@ -48,6 +48,7 @@ h2 {
     border: 1px solid #DDDDDD;
     margin-bottom: 80px;
     padding-bottom: 60px;
+    /* height: 100vh; */
 }
 
 .contact_title {
@@ -89,7 +90,7 @@ label {
     resize: none;
 }
 
-#input_image {
+#drop_image {
     width: 99.5%;
     display: flex;
     flex-direction: column;
@@ -102,8 +103,9 @@ label {
     height: 138px;
 }
 
-#input_upload {
-    display: none;
+#input_img {
+    /* display: none; */
+    opacity: 0;
 }
 
 .contact_btn {
@@ -121,18 +123,21 @@ label {
     background-color: #FF3838;
 }
 
-.contact_list {
+.contact_box_list {
     width: 57%;
+    height: 900px;
+    overflow: auto;
+    /* border: 1px solid #DDDDDD; */
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1300px) {
     .container_contact {
         display: flex;
         flex-direction: column;
     }
 
     .contact_form,
-    .contact_list {
+    .contact_box_list {
         width: 100%;
     }
 
@@ -147,14 +152,74 @@ label {
     }
 }
 
-#message_fn, #message_n, #message_g, #message_bio, #message_img{
+#message_fn,
+#message_n,
+#message_g,
+#message_bio,
+#message_img {
     font-size: 12px;
     color: red;
 }
 
-#input_image img {
+#drop_image img {
     width: auto;
     height: 100%;
     /* object-fit: contain; */
     border-radius: 5px;
+}
+
+.contact_list {
+    padding: 20px;
+    height: 165px;
+    display: flex;
+    gap: 57px;
+    /* justify-content: space-between; */
+    border-left: 1px solid #DDDDDD;
+    border-right: 1px solid #DDDDDD;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+.contact_list_img {
+    /* width: 181px; */
+    width: 19.5%;
+}
+
+.contact_list_img img {
+    width: 100%;
+    border-radius: 50%;
+    /* height: 100%; */
+    height: auto;
+}
+
+.contact_list_text {
+    /* width: 747px; */
+    width: 80.5%;
+    padding: 20px 0px 20px 0px;
+}
+
+.contact_text {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.contact_text p {
+    color: #555;
+    font-weight: 500;
+}
+
+
+#paragraph_num_email {
+    padding: 14px 0px 14px 0px;
+    color: #555;
+    font-weight: 400;
+}
+
+#paragraph_bio {
+    color: #555;
+    font-weight: 400;
+}
+
+#space_between_icon {
+    padding-right: 10px;
 }
