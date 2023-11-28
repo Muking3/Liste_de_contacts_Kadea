@@ -25,9 +25,9 @@ function FIRSTNAME() {
 
 //Champs NOM
 let names = document.getElementById('names');
+let message_n = document.getElementById('message_n');
 names.addEventListener('blur', NAME);
 function NAME() {
-  let message_n = document.getElementById('message_n');
   if (names.value.length < 3) {
     message_n.innerText =
       'Nombre de caractere insuffisant, ne doit pas etre inférieur à 3';
@@ -47,9 +47,9 @@ function NAME() {
 
 //Champs GROUP
 let group = document.getElementById('group');
+let message_g = document.getElementById('message_g');
 group.addEventListener('blur', GROUP);
 function GROUP() {
-  let message_g = document.getElementById('message_g');
   if (group.value.length >= 10) {
     message_g.innerText = 'Le nombre de caractère ne peut pas depasser 10';
     group.style.border = '2px solid red';
@@ -61,11 +61,11 @@ function GROUP() {
   }
 }
 
-// validation d' e-mail
+// Champ E-MAIL
 let email = document.querySelector('#email');
+let message_em = document.querySelector('#message_em');
 let mailExistant = [];
 email.addEventListener('blur', function () {
-  let message_em = document.querySelector('#message_em');
   let Regex = /^[A-Za-z0-9\.]+@[A-Za-z0-9]+(\.)[A-Za-z0-9]{2,}$/;
   let b_mail = Regex.test(email.value);
   if (!b_mail) {
@@ -78,8 +78,7 @@ email.addEventListener('blur', function () {
     email.style.border = '2px solid red';
     email.style.borderRadius = '5px';
     message_em.innerText = 'Adresse déjà existante';
-  } 
-  else {
+  } else {
     message_em.innerText = '';
     email.style.border = '';
     email.style.borderRadius = '';
@@ -88,10 +87,10 @@ email.addEventListener('blur', function () {
 
 //Champs BiO
 let bio = document.querySelector('#text_bio');
+let message_bio = document.getElementById('message_bio');
 bio.addEventListener('input', BIO);
 function BIO() {
   if (this.value.length < 10) {
-    let message_bio = document.getElementById('message_bio');
     this.style.border = '2px solid red';
     this.style.borderRadius = '5px';
     message_bio.innerText = 'Erreur, nombre de caractères inferieur à 10';
@@ -106,3 +105,24 @@ function BIO() {
   }
 }
 
+// Reinitialisation de formulaire.
+let reinit = document.querySelector('#reinit');
+reinit.addEventListener('click', function () {
+  first_name.value = '';
+  names.value = '';
+  numbers.value = '';
+  group.value = '';
+  email.value = '';
+  bio.value = '';
+  first_name.style.border = '';
+  first_name.style.borderRadius = '';
+  message_fn.innerText = '';
+  message_n.innerText = '';
+  names.style.border = '';
+  message_em.innerText = '';
+  email.style.border = '';
+  message_g.innerText = '';
+  group.style.border = '';
+  bio.style.border = '';
+  message_bio.innerText = '';
+});
