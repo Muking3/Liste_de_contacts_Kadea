@@ -253,7 +253,8 @@ function VALIDATION_img(objet_contacts, First_Name, Names, Numbers, Group, Email
 
 // Reinitialisation de formulaire.
 let reinit = document.querySelector('#reinit');
-reinit.addEventListener('click', function () {
+reinit.addEventListener('click', REINIT)
+function REINIT() {
   first_name.value = '';
   names.value = '';
   numbers.value = '';
@@ -271,5 +272,4 @@ reinit.addEventListener('click', function () {
   group.style.border = '';
   bio.style.border = '';
   message_bio.innerText = '';
-});
-
+};
