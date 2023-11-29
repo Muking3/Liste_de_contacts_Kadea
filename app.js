@@ -252,24 +252,24 @@ function VALIDATION_img(objet_contacts, First_Name, Names, Numbers, Group, Email
 }
 
 // Reinitialisation de formulaire.
-let reinit = document.querySelector('#reinit');
-reinit.addEventListener('click', REINIT)
-function REINIT() {
-  first_name.value = '';
-  names.value = '';
-  numbers.value = '';
-  group.value = '';
-  email.value = '';
-  bio.value = '';
-  first_name.style.border = '';
-  first_name.style.borderRadius = '';
-  message_fn.innerText = '';
-  message_n.innerText = '';
-  names.style.border = '';
-  message_em.innerText = '';
-  email.style.border = '';
-  message_g.innerText = '';
-  group.style.border = '';
-  bio.style.border = '';
-  message_bio.innerText = '';
-}
+// let reinit = document.querySelector('#reinit');
+// reinit.addEventListener('click', REINIT)
+// function REINIT() {
+//   first_name.value = '';
+//   names.value = '';
+//   numbers.value = '';
+//   group.value = '';
+//   email.value = '';
+//   bio.value = '';
+//   first_name.style.border = '';
+//   first_name.style.borderRadius = '';
+//   message_fn.innerText = '';
+//   message_n.innerText = '';
+//   names.style.border = '';
+//   message_em.innerText = '';
+//   email.style.border = '';
+//   message_g.innerText = '';
+//   group.style.border = '';
+//   bio.style.border = '';
+//   message_bio.innerText = '';
+// }
