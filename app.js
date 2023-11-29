@@ -65,7 +65,8 @@ function GROUP() {
 let email = document.querySelector('#email');
 let message_em = document.querySelector('#message_em');
 let mailExistant = [];
-email.addEventListener('blur', function () {
+email.addEventListener('blur', E_MAIL)
+function E_MAIL() {
   let Regex = /^[A-Za-z0-9\.]+@[A-Za-z0-9]+(\.)[A-Za-z0-9]{2,}$/;
   let b_mail = Regex.test(email.value);
   if (!b_mail) {
@@ -83,7 +84,7 @@ email.addEventListener('blur', function () {
     email.style.border = '';
     email.style.borderRadius = '';
   }
-});
+};
 
 //Champs BiO
 let bio = document.querySelector('#text_bio');
