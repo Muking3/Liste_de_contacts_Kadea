@@ -272,4 +272,4 @@ function REINIT() {
   group.style.border = '';
   bio.style.border = '';
   message_bio.innerText = '';
-};
+}
