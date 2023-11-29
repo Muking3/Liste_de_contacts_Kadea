@@ -73,7 +73,7 @@ email.addEventListener('blur', function () {
     message_em.style.color = 'red';
     email.style.border = '2px solid red';
     email.style.borderRadius = '5px';
-  } 
+  }
   else if (mailExistant.includes(email.value)) {
     email.style.border = '2px solid red';
     email.style.borderRadius = '5px';
@@ -107,7 +107,8 @@ function BIO() {
 
 // Reinitialisation de formulaire.
 let reinit = document.querySelector('#reinit');
-reinit.addEventListener('click', function () {
+reinit.addEventListener('click', REINIT)
+function REINIT() {
   first_name.value = '';
   names.value = '';
   numbers.value = '';
@@ -125,4 +126,4 @@ reinit.addEventListener('click', function () {
   group.style.border = '';
   bio.style.border = '';
   message_bio.innerText = '';
-});
+};
