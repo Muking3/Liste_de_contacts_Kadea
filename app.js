@@ -227,11 +227,11 @@ function VALIDATION_img(objet_contacts, First_Name, Names, Numbers, Group, Email
     }
 }
 
-const reinit = document.querySelector("#reinit")
-reinit.addEventListener("click", function () {
-    span.hidden = false
+// const reinit = document.querySelector("#reinit")
+// reinit.addEventListener("click", function () {
+//     span.hidden = false
 
-})
+// })
 
 
 
