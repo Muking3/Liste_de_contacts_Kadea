@@ -90,7 +90,7 @@ function E_MAIL() {
     email.style.border = '';
     email.style.borderRadius = '';
   }
-});
+};
 
 //Champs BiO
 const bio = document.querySelector('#text_bio')
