@@ -1,3 +1,4 @@
+
 // Tableau d'enregistrement
 const array_contact = []
 const form = document.querySelector("form")
@@ -65,8 +66,30 @@ function GROUP() {
         group.style.border = ''
         group.style.bordeRaduis = ''
         return true
-    }
-}
+
+// Champ E-MAIL
+let email = document.querySelector('#email');
+let message_em = document.querySelector('#message_em');
+let mailExistant = [];
+email.addEventListener('blur', function () {
+  let Regex = /^[A-Za-z0-9\.]+@[A-Za-z0-9]+(\.)[A-Za-z0-9]{2,}$/;
+  let b_mail = Regex.test(email.value);
+  if (!b_mail) {
+    message_em.innerText = 'Adresse invalide!';
+    message_em.style.color = 'red';
+    email.style.border = '2px solid red';
+    email.style.borderRadius = '5px';
+  } 
+  else if (mailExistant.includes(email.value)) {
+    email.style.border = '2px solid red';
+    email.style.borderRadius = '5px';
+    message_em.innerText = 'Adresse déjà existante';
+  } else {
+    message_em.innerText = '';
+    email.style.border = '';
+    email.style.borderRadius = '';
+  }
+});
 
 //Champs BiO
 const bio = document.querySelector('#text_bio')
@@ -227,40 +250,25 @@ function VALIDATION_img(objet_contacts, First_Name, Names, Numbers, Group, Email
     }
 }
 
-const reinit = document.querySelector("#reinit")
-reinit.addEventListener("click", function () {
-    span.hidden = false
-
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Reinitialisation de formulaire.
+let reinit = document.querySelector('#reinit');
+reinit.addEventListener('click', function () {
+  first_name.value = '';
+  names.value = '';
+  numbers.value = '';
+  group.value = '';
+  email.value = '';
+  bio.value = '';
+  first_name.style.border = '';
+  first_name.style.borderRadius = '';
+  message_fn.innerText = '';
+  message_n.innerText = '';
+  names.style.border = '';
+  message_em.innerText = '';
+  email.style.border = '';
+  message_g.innerText = '';
+  group.style.border = '';
+  bio.style.border = '';
+  message_bio.innerText = '';
+});
 
