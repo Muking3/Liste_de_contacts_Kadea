@@ -69,13 +69,13 @@ function GROUP() {
     }
 }
 // Champ E-MAIL
-let email = document.querySelector('#email');
-let message_em = document.querySelector('#message_em');
-let mailExistant = [];
-email.addEventListener('blur', E_MAIL)
-function E_MAIL() {
-    let Regex = /^[A-Za-z0-9\.]+@[A-Za-z0-9]+(\.)[A-Za-z0-9]{2,}$/;
-    let b_mail = Regex.test(email.value);
+let email = document.querySelector('#email')
+let message_em = document.querySelector('#message_em')
+let mailExistant = []
+email.addEventListener('blur', EMAIL)
+function EMAIL() {
+    let Regex = /^[A-Za-z0-9\.]+@[A-Za-z0-9]+(\.)[A-Za-z0-9]{2,}$/
+    let b_mail = Regex.test(email.value)
     if (!b_mail) {
         message_em.innerText = 'Adresse invalide!';
         message_em.style.color = 'red';
@@ -86,10 +86,12 @@ function E_MAIL() {
         email.style.border = '2px solid red';
         email.style.borderRadius = '5px';
         message_em.innerText = 'Adresse déjà existante';
-    } else {
+    }
+    else {
         message_em.innerText = '';
         email.style.border = '';
         email.style.borderRadius = '';
+        return true
     }
 };
 
@@ -102,12 +104,14 @@ function BIO() {
         bio.style.border = '2px solid red'
         bio.style.borderRadius = "5px"
         message_bio.innerText = 'Erreur, nombre de caractères inferieur à 10'
-    } else if (bio.value.length > 150) {
+    }
+    else if (bio.value.length > 150) {
         let message_bio = document.getElementById('message_bio')
         bio.style.border = '2px solid red'
         bio.style.borderRadius = "5px"
         message_bio.innerText = 'Erreur, nombre de caractères superieur à 150'
-    } else {
+    }
+    else {
         bio.style.border = ''
         message_bio.innerText = ''
         return true
@@ -132,7 +136,6 @@ drop_image.addEventListener("dragleave", () => {
     drop_image.style.border = ""
     instruction_img.hidden = false
 })
-// console.log(input_img.files[0]);
 input_img.addEventListener("change", () => {
     let imgs = input_img.files[0]
     console.log(input_img.files[0]);
@@ -162,7 +165,6 @@ function PHOTO(file) {
             let fileSource = reader.result
             console.log(fileSource);
             instruction_img.hidden = true
-            // instruction_img.style.display = "none"
             photo_contact.src = fileSource
             photo_contact.alt = "image du contact"
             message_img.innerText = ""
@@ -173,17 +175,6 @@ function PHOTO(file) {
         }
     }
 }
-
-// function gat(t){
-//     if (source.length == 0) {
-//         drop_image.style.border = "2px solid red"
-//         drop_image.style.borderRadius = "5px"
-//         message_img.innerText = "Inserer une image"
-//     }
-//     else {
-//         return true
-//     }
-// }
 
 // Envoie du formulaire
 form.addEventListener("keypress", function (e) {
@@ -199,7 +190,6 @@ form.addEventListener("submit", function (e) {
 // Creation d'un object a partir du formulaire
 function OBJECT_FORM() {
     let data = new FormData(form)
-    // console.log(data.get("Picture"));
     const objet_contacts = Object.fromEntries(data)
     console.log(objet_contacts);
 
@@ -222,7 +212,7 @@ function VALIDATION_img(objet_contacts, First_Name, Names, Numbers, Group, Email
         drop_image.style.borderRadius = "5px"
         message_img.innerText = "Inserer une image"
     }
-    else if (FIRSTNAME() && NAME() && GROUP() && BIO() && validation_img) {
+    else if (FIRSTNAME() && NAME() && GROUP() && BIO() && EMAIL() && validation_img) {
         array_contact.push(objet_contacts)
         console.log(array_contact);
         const contact_box_list = document.querySelector(".contact_box_list")
