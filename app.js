@@ -173,6 +173,17 @@ function PHOTO(file) {
     }
 }
 
+// function gat(t){
+//     if (source.length == 0) {
+//         drop_image.style.border = "2px solid red"
+//         drop_image.style.borderRadius = "5px"
+//         message_img.innerText = "Inserer une image"
+//     }
+//     else {
+//         return true
+//     }
+// }
+
 // Envoie du formulaire
 form.addEventListener("keypress", function (e) {
     if (e.key === 'Enter') {
@@ -210,7 +221,7 @@ function VALIDATION_img(objet_contacts, First_Name, Names, Numbers, Group, Email
         drop_image.style.borderRadius = "5px"
         message_img.innerText = "Inserer une image"
     }
-    else if (FIRSTNAME() && NAME() && GROUP() && BIO() && E_MAIL() && validation_img) {
+    else if (FIRSTNAME() && NAME() && GROUP() && BIO() && validation_img) {
         array_contact.push(objet_contacts)
         console.log(array_contact);
         const contact_box_list = document.querySelector(".contact_box_list")
