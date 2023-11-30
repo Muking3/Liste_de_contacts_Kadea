@@ -160,7 +160,8 @@ label {
 #message_n,
 #message_g,
 #message_bio,
-#message_img {
+#message_img,
+#message_em {
     font-size: 12px;
     color: red;
 }
@@ -243,6 +244,7 @@ label {
     * {
         font-size: 15PX;
     }
+
     .contact_list_img img {
         width: 120px;
         border-radius: 50%;
