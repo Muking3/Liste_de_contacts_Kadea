@@ -4,8 +4,8 @@ const array_contact = []
 const form = document.querySelector("form")
 
 // Champs PRENOM
-const first_name = document.getElementById('first_name')
-const message_fn = document.querySelector("#message_fn")
+const first_name = document.getElementById("first_name")
+const message_fn = document.getElementById("message_fn")
 first_name.addEventListener("blur", FIRSTNAME)
 function FIRSTNAME() {
     let valuef_n = first_name.value.trim()
@@ -167,6 +167,7 @@ function PHOTO(file) {
             instruction_img.hidden = true
             photo_contact.src = fileSource
             photo_contact.alt = "image du contact"
+            photo_contact.hidden = false
             message_img.innerText = ""
             drop_image.style.border = ""
             validation_img = true
@@ -219,26 +220,47 @@ function VALIDATION_img(objet_contacts, First_Name, Names, Numbers, Group, Email
         const div = document.createElement("div")
         contact_box_list.appendChild(div)
         div.classList.add("contact_list")
-        div.innerHTML = `<div class="contact_list_img">
-                                <img src="${Source}" alt="photo du contact">
-                            </div>
-                            <div class="contact_list_text">
-                                        <div>
-                                            <div class="contact_text">
-                                                <p>${First_Name} ${Names}-${Group}</p>
-                                                <div>
-                                                    <img id="space_between_icon" src="edit icon.svg"
-                                                        alt="icone modifier">
-                                                    <img src="delete icon.svg"
-                                                        alt="icone supprimer">
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <p id="paragraph_num_email">${Numbers}-${Email}</p>
-                                                <p id="paragraph_bio">${Bio}</p>
-                                            </div>
-                                        </div>
-                            </div>`
+        const div_list_img = document.createElement("div")
+        div.appendChild(div_list_img)
+        div_list_img.classList.add("contact_list_img")
+        const img_contact = document.createElement("img")
+        div_list_img.appendChild(img_contact)
+        img_contact.src = Source
+        img_contact.alt = "photo du contact"
+        const div_list_text = document.createElement("div")
+        div.appendChild(div_list_text)
+        div_list_text.classList.add("contact_list_text")
+        const div_text = document.createElement("div")
+        div_list_text.appendChild(div_text)
+        const div_text_part = document.createElement("div")
+        div_text.appendChild(div_text_part)
+        div_text_part.classList.add("contact_text")
+        const p1 = document.createElement("p")
+        div_text_part.appendChild(p1)
+        p1.innerText = `${First_Name} ${Names}-${Group}`
+        const div_part1 = document.createElement("div")
+        div_text_part.appendChild(div_part1)
+        const icone_edit = document.createElement("img")
+        div_part1.appendChild(icone_edit)
+        icone_edit.id = "space_between_icon"
+        icone_edit.src = "edit icon.svg"
+        icone_edit.alt = "icone modifier"
+        const icone_delete = document.createElement("img")
+        div_part1.appendChild(icone_delete)
+        icone_delete.src = "delete icon.svg"
+        icone_delete.alt = "icone supprimer"
+        const div_part2 = document.createElement("div")
+        div_text.appendChild(div_part2)
+        const p2 = document.createElement("p")
+        div_part2.appendChild(p2)
+        p2.id = "paragraph_num_email"
+        p2.innerText = `${Numbers}-${Email}`
+        const p3 = document.createElement("p")
+        div_part2.appendChild(p3)
+        p3.id = "paragraph_bio"
+        p3.innerText = `${Bio}`
+        reinit.click()
+        DELET(icone_delete, contact_box_list, div)
     }
 }
 
@@ -263,4 +285,14 @@ function REINIT() {
     group.style.border = '';
     bio.style.border = '';
     message_bio.innerText = '';
+    instruction_img.hidden = false
+    photo_contact.hidden = true
 };
+
+function DELET(icone_delete, contact_box_list, div) {
+    icone_delete.addEventListener("click", function () {
+        if (confirm("Etes-vous sûr de vouloir supprimer") == true) {
+            contact_box_list.removeChild(((div)))
+        }
+    })
+}
