@@ -185,6 +185,7 @@ form.addEventListener("keypress", function (e) {
 form.addEventListener("submit", function (e) {
     e.preventDefault()
     OBJECT_FORM()
+    REINIT()
 })
 
 // Creation d'un object a partir du formulaire
@@ -225,10 +226,13 @@ function VALIDATION_img(objet_contacts, First_Name, Names, Numbers, Group, Email
                             <div class="contact_list_text">
                                         <div>
                                             <div class="contact_text">
-                                                <p>${First_Name} ${Names}-${Group}</p>
+                                                <p>
+                                                <span id='firstName'>${First_Name}</span>
+                                                <span id='name'>${Names}</span>
+                                                <span id='group'>-${Group}</span></p>
                                                 <div>
                                                     <img id="space_between_icon" src="edit icon.svg"
-                                                        alt="icone modifier">
+                                                        alt="icone modifier" class="icon_modifie">
                                                     <img src="delete icon.svg"
                                                         alt="icone supprimer">
                                                 </div>
@@ -240,7 +244,13 @@ function VALIDATION_img(objet_contacts, First_Name, Names, Numbers, Group, Email
                                         </div>
                             </div>`
     }
+
+
+        
 }
+
+
+
 
 // Reinitialisation de formulaire.
 let reinit = document.querySelector('#reinit');
@@ -264,3 +274,18 @@ function REINIT() {
     bio.style.border = '';
     message_bio.innerText = '';
 };
+
+// Change buntton
+
+// document.querySelector('#creer').addEventListener("change", MODIFIER);
+
+// function MODIFIER () {
+//     btn_creer.value = modifier.value;
+// }
+
+
+// document.querySelector('#reinit').addEventListener("close", ANNULER);
+
+//   function ANNULER () {
+//     reinit.value = annuler.value;
+//    }
