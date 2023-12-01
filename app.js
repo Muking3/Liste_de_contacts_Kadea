@@ -51,6 +51,45 @@ function NAME() {
     }
 }
 
+// NUMBERS
+let numbers = document.querySelector('#numbers');
+numbers.addEventListener('blur', NUMBERS);
+let numberssExistants = [];
+function NUMBERS() {
+    let numbers = this.value
+    let prefixes = ['084', '085', '080', '089', 'O81', '082', '099', '097', '090'];
+    const message_num = document.getElementById('message_num');
+    //Caractères
+    if (isNaN(numbers)) {
+        this.style.border = '2px solid red';
+        this.style.borderRadius = "5px";
+        message_num.innerHTML = 'le numero de téléphone ne contient que des chiffres';
+    }
+    //Taille
+    if (this.value.length < 10 || this.value.length > 10) {
+        this.style.border = '2px solid red';
+        this.style.borderRadius = "5px";
+        message_num.innerText = 'Erreur, renseigner un numéro de téléphone avec 10 chiffres ';
+    }
+    // Vérification du préfixe du numéro
+    else if (!prefixes.some(prefix => numbers.startsWith(prefix))) {
+        this.style.border = "2px solid red";
+        this.style.borderRadius = "5px";
+        message_num.innerHTML = "renseigner un numéro de téléphone au format valide";
+    }
+    // Vérification de l'existence du numéro
+    else if (numberssExistants.includes(numbers)) {
+        this.style.border = "2px solid red";
+        this.style.borderRadius = "5px";
+        message_num.innerHTML = "Le numéro existe déjà.";
+    }//validation
+    else {
+        this.style.border = ""
+        this.style.borderRadius = "";
+        message_num.innerHTML = "";
+    }
+}
+
 //Champs GROUPE
 const group = document.getElementById('group')
 let message_g = document.getElementById('message_g')
@@ -68,6 +107,7 @@ function GROUP() {
         return true
     }
 }
+
 // Champ E-MAIL
 let email = document.querySelector('#email')
 let message_em = document.querySelector('#message_em')
@@ -214,7 +254,7 @@ function VALIDATION_img(objet_contacts, First_Name, Names, Numbers, Group, Email
         drop_image.style.borderRadius = "5px"
         message_img.innerText = "Inserer une image"
     }
-    else if (FIRSTNAME() && NAME() && GROUP() && BIO() && EMAIL() && validation_img) {
+    else if (FIRSTNAME() && NAME() && NUMBERS() && GROUP() && BIO() && EMAIL() && validation_img) {
         array_contact.push(objet_contacts)
         console.log(array_contact);
         const contact_box_list = document.querySelector(".contact_box_list")
@@ -297,3 +337,4 @@ function DELET(icone_delete, contact_box_list, div) {
         }
     })
 }
+
