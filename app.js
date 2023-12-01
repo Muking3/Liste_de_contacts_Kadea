@@ -167,7 +167,8 @@ function PHOTO(file) {
             instruction_img.hidden = true
             photo_contact.src = fileSource
             photo_contact.alt = "image du contact"
-            photo_contact.hidden = false
+            // photo_contact.hidden = false
+            photo_contact.style.display = "block"
             message_img.innerText = ""
             drop_image.style.border = ""
             validation_img = true
@@ -286,7 +287,7 @@ function REINIT() {
     bio.style.border = '';
     message_bio.innerText = '';
     instruction_img.hidden = false
-    photo_contact.hidden = true
+    photo_contact.style.display = "none"
 };
 
 function DELET(icone_delete, contact_box_list, div) {
