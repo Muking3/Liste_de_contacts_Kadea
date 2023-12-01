@@ -208,7 +208,6 @@ function OBJECT_FORM() {
 }
 
 // NUMBERS
-
 let numbers = document.querySelector('#numbers');
 numbers.addEventListener('blur', NUMBERS);
 let numberssExistants = [];
@@ -301,14 +300,8 @@ function VALIDATION_img(objet_contacts, First_Name, Names, Numbers, Group, Email
         p3.innerText = `${Bio}`
         reinit.click()
         DELET(icone_delete, contact_box_list, div)
-    }
-
-
-        
+    }        
 }
-
-
-
 
 // Reinitialisation de formulaire.
 let reinit = document.querySelector('#reinit');
