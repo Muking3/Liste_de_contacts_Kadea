@@ -130,11 +130,11 @@ drop_image.addEventListener("dragover", (event) => {
     event.preventDefault()
     drop_image.style.border = "2px solid #0880D6"
     drop_image.style.borderRadius = "5px"
-    instruction_img.hidden = true
+    instruction_img.style.display = "none"
 })
 drop_image.addEventListener("dragleave", () => {
     drop_image.style.border = ""
-    instruction_img.hidden = false
+    instruction_img.style.display = "block"
 })
 input_img.addEventListener("change", () => {
     let imgs = input_img.files[0]
@@ -164,10 +164,10 @@ function PHOTO(file) {
         reader.onload = function () {
             let fileSource = reader.result
             console.log(fileSource);
-            instruction_img.hidden = true
+            instruction_img.style.display = "none"
             photo_contact.src = fileSource
             photo_contact.alt = "image du contact"
-            photo_contact.hidden = false
+            photo_contact.style.display = "block"
             message_img.innerText = ""
             drop_image.style.border = ""
             validation_img = true
@@ -285,8 +285,10 @@ function REINIT() {
     group.style.border = '';
     bio.style.border = '';
     message_bio.innerText = '';
-    instruction_img.hidden = false
-    photo_contact.hidden = true
+    source = ""
+    instruction_img.style.display = "block"
+    photo_contact.style.display = "none"
+    input_img.value = ""
 };
 
 function DELET(icone_delete, contact_box_list, div) {
