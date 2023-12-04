@@ -1,77 +1,104 @@
-
-// Tableau d'enregistrement
 const array_contact = []
 const form = document.querySelector("form")
-
-// Champs PRENOM
 const first_name = document.getElementById("first_name")
 const message_fn = document.getElementById("message_fn")
-first_name.addEventListener("blur", FIRSTNAME)
-function FIRSTNAME() {
-    let valuef_n = first_name.value.trim()
-    if (valuef_n.length < 3 || valuef_n.length > 50) {
-        first_name.style.border = "2px solid red"
-        first_name.style.borderRadius = "5px"
-        if (valuef_n.length < 3) {
-            message_fn.innerText = "Nombre de caractére insuffisant, entrez plus de 2 caracteres"
-        }
-        else {
-            message_fn.innerText = "Nombre de caractére execessif, entrez moins de 50 caracteres"
-        }
-    }
-    else {
-        first_name.style.border = ""
-        first_name.style.borderRadius = ""
-        message_fn.innerText = ""
-        return true
-    }
-}
-
-//Champs NOM
-const names = document.getElementById('names')
-const message_n = document.querySelector("#message_n")
-names.addEventListener('blur', NAME)
-function NAME() {
-    let valuef_n = names.value.trim()
-    if (valuef_n.length < 3) {
-        message_n.innerText = "Nombre de caractere insuffisant, ne doit pas etre inférieur à 3"
-        names.style.border = '2px solid red'
-        names.style.borderRadius = '5px'
-    }
-    else if (valuef_n.length > 50) {
-        message_n.innerText = 'Le nombre de caractères ne doit pas aller au-dèla de 50'
-        names.style.border = '2px solid red'
-        names.style.borderRadius = '5px'
-    }
-    else {
-        message_n.innerText = ''
-        names.style.border = ''
-        names.style.borderRadius = ''
-        return true
-    }
-}
-
-//Champs GROUPE
+const names = document.getElementById("names")
+const message_n = document.getElementById("message_n")
+const numbers = document.getElementById("numbers")
+const message_num = document.getElementById("message_num")
 const group = document.getElementById('group')
-let message_g = document.getElementById('message_g')
-group.addEventListener('blur', GROUP)
-function GROUP() {
-    if (group.value.length >= 10) {
-        message_g.innerText = "Le nombre de caractère ne peut pas depasser 10"
-        group.style.border = "2px solid red"
-        group.style.borderRadius = "5px"
+const message_g = document.getElementById('message_g')
+
+
+first_name.addEventListener("blur", function () {
+    INDENTITY(first_name, message_fn)
+})
+names.addEventListener("blur", function () {
+    INDENTITY(names, message_n)
+})
+group.addEventListener("blur", function () {
+    GROUP(group, message_g)
+})
+
+function INPUT_STYLE(input) {
+    input.style.border = "2px solid red"
+    input.style.borderRadius = "5px"
+}
+function INIT(input, message) {
+    input.style.border = ""
+    input.style.borderRadius = ""
+    message.innerText = ""
+}
+
+function INDENTITY(input, message) {
+    let value_id = input.value.trim()
+    if (value_id.length < 3) {
+        INPUT_STYLE(input)
+        message.innerText = "Nombre de caractere insuffisant, ne doit pas etre en-deçà de 3 caracteres"
+    }
+    else if (value_id.length > 50) {
+        INPUT_STYLE(input)
+        message.innerText = "Nombre de caractere execessif, ne doit pas etre au-dèla de 50 caracteres"
     }
     else {
-        message_g.innerText = ''
-        group.style.border = ''
-        group.style.bordeRaduis = ''
+        INIT(input, message)
         return true
     }
 }
+
+// NUMBERS
+numbers.addEventListener('blur', NUMBERS);
+function NUMBERS() {
+    let prefixes = ['084', '085', '080', '089', 'O81', '082', '099', '097', '090'];
+    //Caractères
+    if (isNaN(numbers.value)) {
+        numbers.style.border = '2px solid red';
+        numbers.style.borderRadius = "5px";
+        message_num.innerHTML = 'le numero de téléphone ne contient que des chiffres';
+    }
+    //Taille
+    if (numbers.value.length !== 10) {
+        numbers.style.border = '2px solid red';
+        numbers.style.borderRadius = "5px";
+        message_num.innerText = 'Erreur, renseigner un numéro de téléphone avec 10 chiffres ';
+    }
+    // Vérification du préfixe du numéro
+    else if (!prefixes.some(prefix => numbers.value.startsWith(prefix))) {
+        numbers.style.border = "2px solid red";
+        numbers.style.borderRadius = "5px";
+        message_num.innerHTML = "renseigner un numéro de téléphone au format valide";
+    }
+    // Vérification de l'existence du numéro
+    else if (array_contact.some(obj => obj.Numbers === numbers.value)) {
+        numbers.style.border = "2px solid red";
+        numbers.style.borderRadius = "5px";
+        message_num.innerHTML = "Le numéro existe déjà.";
+    }//validation
+    else {
+        numbers.style.border = ""
+        numbers.style.borderRadius = "";
+        message_num.innerHTML = "";
+        return true
+    }
+}
+
+
+function GROUP(input, message) {
+    let value_id = input.value.trim()
+    if (value_id.length >= 10) {
+        INPUT_STYLE(input)
+        message.innerText = "Nombre de caractere execessif, ne doit pas etre au-dèla de 10 caracteres"
+    }
+    else {
+        INIT(input, message)
+        return true
+    }
+}
+
 // Champ E-MAIL
 let email = document.querySelector('#email')
 let message_em = document.querySelector('#message_em')
-let mailExistant = []
+// let mailExistant = []
 email.addEventListener('blur', EMAIL)
 function EMAIL() {
     let Regex = /^[A-Za-z0-9\.]+@[A-Za-z0-9]+(\.)[A-Za-z0-9]{2,}$/
@@ -82,7 +109,7 @@ function EMAIL() {
         email.style.border = '2px solid red';
         email.style.borderRadius = '5px';
     }
-    else if (mailExistant.includes(email.value)) {
+    else if (array_contact.some(obj => obj.Email === email.value)) {
         email.style.border = '2px solid red';
         email.style.borderRadius = '5px';
         message_em.innerText = 'Adresse déjà existante';
@@ -130,11 +157,11 @@ drop_image.addEventListener("dragover", (event) => {
     event.preventDefault()
     drop_image.style.border = "2px solid #0880D6"
     drop_image.style.borderRadius = "5px"
-    instruction_img.style.display = "none"
+    instruction_img.hidden = true
 })
 drop_image.addEventListener("dragleave", () => {
     drop_image.style.border = ""
-    instruction_img.style.display = "block"
+    instruction_img.hidden = false
 })
 input_img.addEventListener("change", () => {
     let imgs = input_img.files[0]
@@ -164,9 +191,10 @@ function PHOTO(file) {
         reader.onload = function () {
             let fileSource = reader.result
             console.log(fileSource);
-            instruction_img.style.display = "none"
+            instruction_img.hidden = true
             photo_contact.src = fileSource
             photo_contact.alt = "image du contact"
+            // photo_contact.hidden = false
             photo_contact.style.display = "block"
             message_img.innerText = ""
             drop_image.style.border = ""
@@ -213,7 +241,7 @@ function VALIDATION_img(objet_contacts, First_Name, Names, Numbers, Group, Email
         drop_image.style.borderRadius = "5px"
         message_img.innerText = "Inserer une image"
     }
-    else if (FIRSTNAME() && NAME() && GROUP() && BIO() && EMAIL() && validation_img) {
+    else if (INDENTITY(first_name, message_fn) && INDENTITY(names, message_n) && GROUP(group, message_g) && BIO() && EMAIL() && validation_img) {
         array_contact.push(objet_contacts)
         console.log(array_contact);
         const contact_box_list = document.querySelector(".contact_box_list")
@@ -279,16 +307,16 @@ function REINIT() {
     message_fn.innerText = '';
     message_n.innerText = '';
     names.style.border = '';
+    numbers.style.border = '';
+    message_num.innerText = '';
     message_em.innerText = '';
     email.style.border = '';
     message_g.innerText = '';
     group.style.border = '';
     bio.style.border = '';
     message_bio.innerText = '';
-    source = ""
-    instruction_img.style.display = "block"
+    instruction_img.hidden = false
     photo_contact.style.display = "none"
-    input_img.value = ""
 };
 
 function DELET(icone_delete, contact_box_list, div) {
@@ -298,3 +326,4 @@ function DELET(icone_delete, contact_box_list, div) {
         }
     })
 }
+
