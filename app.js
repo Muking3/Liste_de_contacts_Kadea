@@ -8,7 +8,10 @@ const numbers = document.getElementById("numbers")
 const message_num = document.getElementById("message_num")
 const group = document.getElementById('group')
 const message_g = document.getElementById('message_g')
-
+const rt = document.querySelector("#rt")
+const modifier = document.querySelector("#modifier")
+modifier.style.display = "none"
+const submit = document.querySelector("#submit")
 
 first_name.addEventListener("blur", function () {
     INDENTITY(first_name, message_fn)
@@ -47,6 +50,7 @@ function INDENTITY(input, message) {
 }
 
 // NUMBERS
+
 numbers.addEventListener('blur', NUMBERS);
 function NUMBERS() {
     let prefixes = ['084', '085', '080', '089', 'O81', '082', '099', '097', '090'];
@@ -221,76 +225,25 @@ function OBJECT_FORM() {
     let data = new FormData(form)
     const objet_contacts = Object.fromEntries(data)
     console.log(objet_contacts);
-
-    // Creation variable du formulaire
-    const First_Name = objet_contacts.First_Name
-    const Names = objet_contacts.Names
-    const Numbers = objet_contacts.Numbers
-    const Group = objet_contacts.Group
-    const Email = objet_contacts.Email
-    const Bio = objet_contacts.Bio
     objet_contacts.Source = source
     const Source = objet_contacts.Source
-    VALIDATION_img(objet_contacts, First_Name, Names, Numbers, Group, Email, Bio, Source)
+    VALIDATION_img(objet_contacts, Source)
 }
 
 // Validation_img du formulaire (Liste des contacts)
-function VALIDATION_img(objet_contacts, First_Name, Names, Numbers, Group, Email, Bio, Source) {
+function VALIDATION_img(objet_contacts, Source) {
     if (Source.length == 0) {
         drop_image.style.border = "2px solid red"
         drop_image.style.borderRadius = "5px"
         message_img.innerText = "Inserer une image"
     }
-    else if (INDENTITY(first_name, message_fn) && INDENTITY(names, message_n) && GROUP(group, message_g) && BIO() && EMAIL() && validation_img) {
+    else if (INDENTITY(first_name, message_fn) && INDENTITY(names, message_n) && validation_img) {
         array_contact.push(objet_contacts)
-        console.log(array_contact);
-        const contact_box_list = document.querySelector(".contact_box_list")
-        const div = document.createElement("div")
-        contact_box_list.appendChild(div)
-        div.classList.add("contact_list")
-        const div_list_img = document.createElement("div")
-        div.appendChild(div_list_img)
-        div_list_img.classList.add("contact_list_img")
-        const img_contact = document.createElement("img")
-        div_list_img.appendChild(img_contact)
-        img_contact.src = Source
-        img_contact.alt = "photo du contact"
-        const div_list_text = document.createElement("div")
-        div.appendChild(div_list_text)
-        div_list_text.classList.add("contact_list_text")
-        const div_text = document.createElement("div")
-        div_list_text.appendChild(div_text)
-        const div_text_part = document.createElement("div")
-        div_text.appendChild(div_text_part)
-        div_text_part.classList.add("contact_text")
-        const p1 = document.createElement("p")
-        div_text_part.appendChild(p1)
-        p1.innerText = `${First_Name} ${Names}-${Group}`
-        const div_part1 = document.createElement("div")
-        div_text_part.appendChild(div_part1)
-        const icone_edit = document.createElement("img")
-        div_part1.appendChild(icone_edit)
-        icone_edit.id = "space_between_icon"
-        icone_edit.src = "edit icon.svg"
-        icone_edit.alt = "icone modifier"
-        const icone_delete = document.createElement("img")
-        div_part1.appendChild(icone_delete)
-        icone_delete.src = "delete icon.svg"
-        icone_delete.alt = "icone supprimer"
-        const div_part2 = document.createElement("div")
-        div_text.appendChild(div_part2)
-        const p2 = document.createElement("p")
-        div_part2.appendChild(p2)
-        p2.id = "paragraph_num_email"
-        p2.innerText = `${Numbers}-${Email}`
-        const p3 = document.createElement("p")
-        div_part2.appendChild(p3)
-        p3.id = "paragraph_bio"
-        p3.innerText = `${Bio}`
+        CONTACT(Source)
         reinit.click()
-        DELET(icone_delete, contact_box_list, div)
     }
 }
+
 
 // Reinitialisation de formulaire.
 let reinit = document.querySelector('#reinit');
@@ -319,11 +272,100 @@ function REINIT() {
     photo_contact.style.display = "none"
 };
 
-function DELET(icone_delete, contact_box_list, div) {
+function DELET(icone_delete, rt, div) {
     icone_delete.addEventListener("click", function () {
         if (confirm("Etes-vous sûr de vouloir supprimer") == true) {
-            contact_box_list.removeChild(((div)))
+            rt.removeChild(div)
         }
     })
 }
 
+function CONTACT(Source) {
+    rt.innerHTML = ""
+    for (let i = 0; i < array_contact.length; i++) {
+        let element = array_contact[i];
+        const FN = element.First_Name
+        const N = element.Names
+        const Gp = element.Group
+        const Em = element.Email
+        const B = element.Bio
+        const Num = element.Num
+        const div = document.createElement("div")
+        rt.appendChild(div)
+        div.classList.add("contact_list")
+        const div_list_img = document.createElement("div")
+        div.appendChild(div_list_img)
+        div_list_img.classList.add("contact_list_img")
+        const img_contact = document.createElement("img")
+        div_list_img.appendChild(img_contact)
+        img_contact.src = Source
+        img_contact.alt = "photo du contact"
+        const div_list_text = document.createElement("div")
+        div.appendChild(div_list_text)
+        div_list_text.classList.add("contact_list_text")
+        const div_text = document.createElement("div")
+        div_list_text.appendChild(div_text)
+        const div_text_part = document.createElement("div")
+        div_text.appendChild(div_text_part)
+        div_text_part.classList.add("contact_text")
+        const p1 = document.createElement("p")
+        div_text_part.appendChild(p1)
+        p1.innerText = `${FN} ${N}-${Gp}`
+        const div_part1 = document.createElement("div")
+        div_text_part.appendChild(div_part1)
+        const icone_edit = document.createElement("img")
+        div_part1.appendChild(icone_edit)
+        icone_edit.id = "space_between_icon"
+        icone_edit.src = "edit icon.svg"
+        icone_edit.alt = "icone modifier"
+        const icone_delete = document.createElement("img")
+        div_part1.appendChild(icone_delete)
+        icone_delete.src = "delete icon.svg"
+        icone_delete.alt = "icone supprimer"
+        const div_part2 = document.createElement("div")
+        div_text.appendChild(div_part2)
+        const p2 = document.createElement("p")
+        div_part2.appendChild(p2)
+        p2.id = "paragraph_num_email"
+        p2.innerText = `${Num}-${Em}`
+        const p3 = document.createElement("p")
+        div_part2.appendChild(p3)
+        p3.id = "paragraph_bio"
+        p3.innerText = `${B}`
+        DELET(icone_delete, rt, div)
+        EDIT(icone_edit, FN, N, Num, B, Em, Gp, element)
+    }
+}
+
+function EDIT(icone_edit, FN, N, Num, B, Em, Gp, element) {
+    icone_edit.addEventListener("click", function () {
+        first_name.value = FN
+        names.value = N
+        numbers.value = Num
+        bio.value = B
+        email.value = Em
+        group.value = Gp
+        submit.style.display = "none"
+        modifier.style.display = "block"
+        reinit.textContent = "Annuler"
+        let index = array_contact.indexOf(element)
+        MODIFIER(index)
+    })
+}
+function MODIFIER(index) {
+    modifier.addEventListener("click", function () {
+        objet = {
+            f: first_name.value,
+            n: names.value,
+            num: numbers.value,
+            b: bio.value,
+            em: email.value,
+            g: group.value,
+            s: source
+        }
+        // VALIDATION_img(objet, s)
+        array_contact[index] = objet
+        console.log(array_contact)
+        CONTACT(source)
+    })
+}
