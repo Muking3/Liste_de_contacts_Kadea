@@ -1,30 +1,4 @@
-const array_contact = []
-const form = document.querySelector("form")
-const first_name = document.getElementById("first_name")
-const message_fn = document.getElementById("message_fn")
-const names = document.getElementById("names")
-const message_n = document.getElementById("message_n")
-const numbers = document.getElementById("numbers")
-const message_num = document.getElementById("message_num")
-const group = document.getElementById('group')
-const message_g = document.getElementById('message_g')
-const rt = document.querySelector("#rt")
-const edit = document.querySelector("#edit")
-edit.style.display = "none"
-const submit = document.querySelector("#submit")
-const exit = document.querySelector("#exit")
-exit.style.display = "none"
-
-first_name.addEventListener("blur", function () {
-    INDENTITY(first_name, message_fn)
-})
-names.addEventListener("blur", function () {
-    INDENTITY(names, message_n)
-})
-group.addEventListener("blur", function () {
-    GROUP(group, message_g)
-})
-
+//Fonction STANDARD
 function INPUT_STYLE(input) {
     input.style.border = "2px solid red"
     input.style.borderRadius = "5px"
@@ -34,70 +8,77 @@ function INIT(input, message) {
     input.style.borderRadius = ""
     message.innerText = ""
 }
-
-function INDENTITY(input, message) {
+function COMPARE(input, message, min, max) {
     let value_id = input.value.trim()
-    if (value_id.length < 3) {
+    if (value_id.length < min) {
         INPUT_STYLE(input)
-        message.innerText = "Nombre de caractere insuffisant, ne doit pas etre en-deçà de 3 caracteres"
+        message.innerText = `Nombre de caractere insuffisant, ne doit pas etre en-deçà de ${min} caracteres`
     }
-    else if (value_id.length > 50) {
+    else if (value_id.length > max) {
         INPUT_STYLE(input)
-        message.innerText = "Nombre de caractere execessif, ne doit pas etre au-dèla de 50 caracteres"
+        message.innerText = `Nombre de caractere insuffisant, ne doit pas etre en-deçà de ${max} caracteres`
     }
     else {
         INIT(input, message)
         return true
     }
 }
-
-// NUMBERS
+// Champ PRENOM
+const first_name = document.getElementById("first_name")
+const message_fn = document.getElementById("message_fn")
+first_name.addEventListener("blur", function () {
+    COMPARE(first_name, message_fn, 3, 50)
+})
+// Champ NOM
+const names = document.getElementById("names")
+const message_n = document.getElementById("message_n")
+names.addEventListener("blur", function () {
+    COMPARE(names, message_n, 3, 50)
+})
+// Champ TEL
+const numbers = document.getElementById("numbers")
+const message_num = document.getElementById("message_num")
 numbers.addEventListener('blur', NUMBERS);
 function NUMBERS() {
     let prefixes = ['084', '085', '080', '089', '081', '082', '099', '097', '090'];
-    //Caractères
     if (isNaN(numbers.value)) {
-        numbers.style.border = '2px solid red';
-        numbers.style.borderRadius = "5px";
-        message_num.innerHTML = 'le numero de téléphone ne contient que des chiffres';
+        INPUT_STYLE(numbers)
+        message_num.innerText = 'le numero de téléphone ne contient que des chiffres';
     }
-    //Taille
     else if (numbers.value.length !== 10) {
-        numbers.style.border = '2px solid red';
-        numbers.style.borderRadius = "5px";
+        INPUT_STYLE(numbers)
         message_num.innerText = 'Erreur, renseigner un numéro de téléphone avec 10 chiffres ';
     }
-    // Vérification du préfixe du numéro
     else if (!prefixes.some(prefix => numbers.value.startsWith(prefix))) {
-        numbers.style.border = "2px solid red";
-        numbers.style.borderRadius = "5px";
-        message_num.innerHTML = "renseigner un numéro de téléphone au format valide";
+        INPUT_STYLE(numbers)
+        message_num.innerText = "renseigner un numéro de téléphone au format valide";
     }
-    // Vérification de l'existence du numéro
     else if (array_contact.some(obj => obj.Numbers === numbers.value)) {
-        numbers.style.border = "2px solid red";
-        numbers.style.borderRadius = "5px";
-        message_num.innerHTML = "Le numéro existe déjà.";
-    }//validation
+        INPUT_STYLE(numbers)
+        message_num.innerText = "Le numéro existe déjà.";
+    }
     else {
         INIT(numbers, message_num)
         return true
     }
 }
-
-
-function GROUP(input, message) {
+// Champ GROUPE
+const group = document.getElementById('group')
+const message_g = document.getElementById('message_g')
+group.addEventListener("blur", function () {
+    GROUP(group, message_g, 10)
+})
+function GROUP(input, message, max) {
     let value_id = input.value.trim()
-    if (value_id.length >= 10) {
+    if (value_id.length > max) {
         INPUT_STYLE(input)
-        message.innerText = "Nombre de caractere execessif, ne doit pas etre au-dèla de 10 caracteres"
+        message.innerText = `Nombre de caractere insuffisant, ne doit pas etre en-deçà de ${max} caracteres`
     }
     else {
         INIT(input, message)
         return true
     }
 }
-
 // Champ E-MAIL
 const email = document.querySelector('#email')
 const message_em = document.querySelector('#message_em')
@@ -106,44 +87,24 @@ function EMAIL() {
     let Regex = /^[A-Za-z0-9\.-\_]+@[A-Za-z0-9]+(\.)[A-Za-z0-9]{2,}$/
     let b_mail = Regex.test(email.value)
     if (!b_mail) {
-        message_em.innerText = 'Adresse invalide!';
-        message_em.style.color = 'red';
-        email.style.border = '2px solid red';
-        email.style.borderRadius = '5px';
+        INPUT_STYLE(email)
+        message_em.innerText = 'Adresse invalide!'
     }
     else if (array_contact.some(obj => obj.Email === email.value)) {
-        email.style.border = '2px solid red';
-        email.style.borderRadius = '5px';
+        INPUT_STYLE(email)
         message_em.innerText = 'Adresse déjà existante';
     }
     else {
         INIT(email, message_em)
         return true
     }
-};
-
+}
 //Champs BiO
 const bio = document.querySelector('#text_bio')
 const message_bio = document.getElementById('message_bio')
-bio.addEventListener('input', BIO)
-function BIO() {
-    if (bio.value.length < 10) {
-        bio.style.border = '2px solid red'
-        bio.style.borderRadius = "5px"
-        message_bio.innerText = 'Erreur, nombre de caractères inferieur à 10'
-    }
-    else if (bio.value.length > 150) {
-        let message_bio = document.getElementById('message_bio')
-        bio.style.border = '2px solid red'
-        bio.style.borderRadius = "5px"
-        message_bio.innerText = 'Erreur, nombre de caractères superieur à 150'
-    }
-    else {
-        INIT(bio, message_bio)
-        return true
-    }
-}
-
+bio.addEventListener('input', function () {
+    COMPARE(bio, message_bio, 10, 200)
+})
 // Champs IMAGE
 const drop_image = document.querySelector("#drop_image")
 const input_img = document.querySelector("#input_img")
@@ -152,7 +113,7 @@ const instruction_img = document.querySelector("#instruction_img")
 const photo_contact = document.querySelector("#photo_contact")
 let source = ""
 let ss
-let validation_img = ""
+let validate_img
 drop_image.addEventListener("dragover", (event) => {
     event.preventDefault()
     drop_image.style.border = "2px solid #0880D6"
@@ -165,24 +126,17 @@ drop_image.addEventListener("dragleave", () => {
 })
 input_img.addEventListener("change", () => {
     let imgs = input_img.files[0]
-    console.log(input_img.files[0]);
     PHOTO(imgs)
 })
-
 function PHOTO(file) {
     let fileType = file.type
-    console.log(file.size)
     let tableRegex = /png$|jpe?g$/
     if (!tableRegex.test(fileType)) {
-        console.log(fileType)
-        drop_image.style.border = "2px solid red"
-        drop_image.style.borderRadius = "5px"
+        INPUT_STYLE(drop_image)
         message_img.innerText = "Format de l'image invalide"
     }
     else if (file.size > 5242880) {
-        console.log(fileType)
-        drop_image.style.border = "2px solid red"
-        drop_image.style.borderRadius = "5px"
+        INPUT_STYLE(drop_image)
         message_img.innerText = "Taille de l'image depasse 5Mo"
     }
     else {
@@ -190,23 +144,27 @@ function PHOTO(file) {
         reader.readAsDataURL(file)
         reader.onload = function () {
             let fileSource = reader.result
-            console.log(fileSource);
             instruction_img.style.display = "none"
             photo_contact.src = fileSource
             photo_contact.alt = "image du contact"
-            // photo_contact.hidden = false
             photo_contact.style.display = "block"
             message_img.innerText = ""
             drop_image.style.border = ""
-            validation_img = true
             source = fileSource
             ss = fileSource
-            return true
+            validate_img = true
         }
     }
 }
-
 // Envoie du formulaire
+const array_contact = []
+const form = document.querySelector("form")
+const rt = document.querySelector("#rt")
+const edit = document.querySelector("#edit")
+edit.style.display = "none"
+const submit = document.querySelector("#submit")
+const exit = document.querySelector("#exit")
+exit.style.display = "none"
 form.addEventListener("keypress", function (e) {
     if (e.key === 'Enter') {
         e.preventDefault()
@@ -216,31 +174,25 @@ submit.addEventListener("click", function (e) {
     e.preventDefault()
     OBJECT_FORM()
 })
-
 // Creation d'un object a partir du formulaire
 function OBJECT_FORM() {
     let data = new FormData(form)
     const objet_contacts = Object.fromEntries(data)
-    console.log(objet_contacts);
     objet_contacts.Source = source
     const Source = objet_contacts.Source
-    // VALIDATION_img(objet_contacts, Source)
-    if (VALIDATION_img(Source)) {
+    if (VALIDATION(Source)) {
         array_contact.push(objet_contacts)
         SHOW_CONTACT()
         REINIT()
     }
 }
-
 // Validation_img du formulaire (Liste des contacts)
-function VALIDATION_img(Source) {
+function VALIDATION(Source) {
     if (Source.length == 0) {
-        drop_image.style.border = "2px solid red"
-        drop_image.style.borderRadius = "5px"
+        INPUT_STYLE(drop_image)
         message_img.innerText = "Inserer une image"
     }
-    else if (INDENTITY(first_name, message_fn) && INDENTITY(names, message_n) && NUMBERS() && BIO() && GROUP(group, message_g) && EMAIL() && validation_img) {
-        console.log(array_contact);
+    else if (COMPARE(first_name, message_fn, 3, 50) && COMPARE(names, message_n, 3, 50) && NUMBERS() && COMPARE(bio, message_bio, 10, 200) && GROUP(group, message_g, 10) && EMAIL() && validate_img) {
         return true
     }
 }
@@ -251,11 +203,30 @@ const reinit = document.getElementById('reinit');
 reinit.addEventListener('click', REINIT)
 function REINIT() {
     INIT(first_name, message_fn)
-    INIT(names, message_n)
-    INIT(group, message_g)
-    INIT(numbers, message_num)
-    INIT(email, message_em)
-    INIT(bio, message_bio)
+    // INIT(names, message_n)
+    // INIT(group, message_g)
+    // INIT(numbers, message_num)
+    // INIT(email, message_em)
+    // INIT(bio, message_bio)
+    // first_name.value = '';
+    // names.value = '';
+    // numbers.value = '';
+    // group.value = '';
+    // email.value = '';
+    // bio.value = '';
+    // first_name.style.border = '';
+    // first_name.style.borderRadius = '';
+    // message_fn.innerText = '';
+    // message_n.innerText = '';
+    // names.style.border = '';
+    // numbers.style.border = '';
+    // message_num.innerText = '';
+    // message_em.innerText = '';
+    // email.style.border = '';
+    // message_g.innerText = '';
+    // group.style.border = '';
+    // bio.style.border = '';
+    // message_bio.innerText = '';
     instruction_img.style.display = "block"
     photo_contact.style.display = "none"
     input_img.value = ""
@@ -263,7 +234,6 @@ function REINIT() {
     photo_contact.src = "#"
     photo_contact.alt = ""
 }
-
 function ICON_DELETE(icon_delete, element) {
     icon_delete.addEventListener("click", function () {
         let index = array_contact.indexOf(element)
@@ -374,7 +344,7 @@ function BTN_EDIT() {
     submit.style.display = "block"
     exit.style.display = "none"
     reinit.style.display = "block"
-    if (VALIDATION_img(object_edit.Source)) {
+    if (VALIDATION(object_edit.Source)) {
         array_contact[indexo] = object_edit
         SHOW_CONTACT()
         REINIT()
