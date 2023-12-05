@@ -6,75 +6,110 @@ const form = document.querySelector("form")
 // Champs PRENOM
 const first_name = document.getElementById("first_name")
 const message_fn = document.getElementById("message_fn")
-first_name.addEventListener("blur", FIRSTNAME)
-function FIRSTNAME() {
-    let valuef_n = first_name.value.trim()
-    if (valuef_n.length < 3 || valuef_n.length > 50) {
-        first_name.style.border = "2px solid red"
-        first_name.style.borderRadius = "5px"
-        if (valuef_n.length < 3) {
-            message_fn.innerText = "Nombre de caractére insuffisant, entrez plus de 2 caracteres"
-        }
-        else {
-            message_fn.innerText = "Nombre de caractére execessif, entrez moins de 50 caracteres"
-        }
-    }
-    else {
-        first_name.style.border = ""
-        first_name.style.borderRadius = ""
-        message_fn.innerText = ""
-        return true
-    }
-}
-
-//Champs NOM
-const names = document.getElementById('names')
-const message_n = document.querySelector("#message_n")
-names.addEventListener('blur', NAME)
-function NAME() {
-    let valuef_n = names.value.trim()
-    if (valuef_n.length < 3) {
-        message_n.innerText = "Nombre de caractere insuffisant, ne doit pas etre inférieur à 3"
-        names.style.border = '2px solid red'
-        names.style.borderRadius = '5px'
-    }
-    else if (valuef_n.length > 50) {
-        message_n.innerText = 'Le nombre de caractères ne doit pas aller au-dèla de 50'
-        names.style.border = '2px solid red'
-        names.style.borderRadius = '5px'
-    }
-    else {
-        message_n.innerText = ''
-        names.style.border = ''
-        names.style.borderRadius = ''
-        return true
-    }
-}
-
-//Champs GROUPE
+const names = document.getElementById("names")
+const message_n = document.getElementById("message_n")
+const numbers = document.getElementById("numbers")
+const message_num = document.getElementById("message_num")
 const group = document.getElementById('group')
-let message_g = document.getElementById('message_g')
-group.addEventListener('blur', GROUP)
-function GROUP() {
-    if (group.value.length >= 10) {
-        message_g.innerText = "Le nombre de caractère ne peut pas depasser 10"
-        group.style.border = "2px solid red"
-        group.style.borderRadius = "5px"
+const message_g = document.getElementById('message_g')
+const rt = document.querySelector("#rt")
+const edit = document.querySelector("#edit")
+edit.style.display = "none"
+const submit = document.querySelector("#submit")
+const exit = document.querySelector("#exit")
+exit.style.display = "none"
+
+first_name.addEventListener("blur", function () {
+    INDENTITY(first_name, message_fn)
+})
+names.addEventListener("blur", function () {
+    INDENTITY(names, message_n)
+})
+group.addEventListener("blur", function () {
+    GROUP(group, message_g)
+})
+
+function INPUT_STYLE(input) {
+    input.style.border = "2px solid red"
+    input.style.borderRadius = "5px"
+}
+function INIT(input, message) {
+    input.style.border = ""
+    input.style.borderRadius = ""
+    message.innerText = ""
+}
+
+function INDENTITY(input, message) {
+    let value_id = input.value.trim()
+    if (value_id.length < 3) {
+        INPUT_STYLE(input)
+        message.innerText = "Nombre de caractere insuffisant, ne doit pas etre en-deçà de 3 caracteres"
+    }
+    else if (value_id.length > 50) {
+        INPUT_STYLE(input)
+        message.innerText = "Nombre de caractere execessif, ne doit pas etre au-dèla de 50 caracteres"
     }
     else {
-        message_g.innerText = ''
-        group.style.border = ''
-        group.style.bordeRaduis = ''
+        INIT(input, message)
         return true
     }
 }
+
+// NUMBERS
+numbers.addEventListener('blur', NUMBERS);
+function NUMBERS() {
+    let prefixes = ['084', '085', '080', '089', '081', '082', '099', '097', '090'];
+    //Caractères
+    if (isNaN(numbers.value)) {
+        numbers.style.border = '2px solid red';
+        numbers.style.borderRadius = "5px";
+        message_num.innerHTML = 'le numero de téléphone ne contient que des chiffres';
+    }
+    //Taille
+    else if (numbers.value.length !== 10) {
+        numbers.style.border = '2px solid red';
+        numbers.style.borderRadius = "5px";
+        message_num.innerText = 'Erreur, renseigner un numéro de téléphone avec 10 chiffres ';
+    }
+    // Vérification du préfixe du numéro
+    else if (!prefixes.some(prefix => numbers.value.startsWith(prefix))) {
+        numbers.style.border = "2px solid red";
+        numbers.style.borderRadius = "5px";
+        message_num.innerHTML = "renseigner un numéro de téléphone au format valide";
+    }
+    // Vérification de l'existence du numéro
+    else if (array_contact.some(obj => obj.Numbers === numbers.value)) {
+        numbers.style.border = "2px solid red";
+        numbers.style.borderRadius = "5px";
+        message_num.innerHTML = "Le numéro existe déjà.";
+    }//validation
+    else {
+        numbers.style.border = ""
+        numbers.style.borderRadius = "";
+        message_num.innerHTML = "";
+        return true
+    }
+}
+
+function GROUP(input, message) {
+    let value_id = input.value.trim()
+    if (value_id.length >= 10) {
+        INPUT_STYLE(input)
+        message.innerText = "Nombre de caractere execessif, ne doit pas etre au-dèla de 10 caracteres"
+    }
+    else {
+        INIT(input, message)
+        return true
+    }
+}
+
 // Champ E-MAIL
 let email = document.querySelector('#email')
 let message_em = document.querySelector('#message_em')
 let mailExistant = []
 email.addEventListener('blur', EMAIL)
 function EMAIL() {
-    let Regex = /^[A-Za-z0-9\.]+@[A-Za-z0-9]+(\.)[A-Za-z0-9]{2,}$/
+    let Regex = /^[A-Za-z0-9\.-\_]+@[A-Za-z0-9]+(\.)[A-Za-z0-9]{2,}$/
     let b_mail = Regex.test(email.value)
     if (!b_mail) {
         message_em.innerText = 'Adresse invalide!';
@@ -82,7 +117,7 @@ function EMAIL() {
         email.style.border = '2px solid red';
         email.style.borderRadius = '5px';
     }
-    else if (mailExistant.includes(email.value)) {
+    else if (array_contact.some(obj => obj.Email === email.value)) {
         email.style.border = '2px solid red';
         email.style.borderRadius = '5px';
         message_em.innerText = 'Adresse déjà existante';
@@ -125,16 +160,17 @@ const message_img = document.querySelector("#message_img")
 const instruction_img = document.querySelector("#instruction_img")
 const photo_contact = document.querySelector("#photo_contact")
 let source = ""
+let ss
 let validation_img = ""
 drop_image.addEventListener("dragover", (event) => {
     event.preventDefault()
     drop_image.style.border = "2px solid #0880D6"
     drop_image.style.borderRadius = "5px"
-    instruction_img.hidden = true
+    instruction_img.style.display = "none"
 })
 drop_image.addEventListener("dragleave", () => {
     drop_image.style.border = ""
-    instruction_img.hidden = false
+    instruction_img.style.display = "block"
 })
 input_img.addEventListener("change", () => {
     let imgs = input_img.files[0]
@@ -164,14 +200,16 @@ function PHOTO(file) {
         reader.onload = function () {
             let fileSource = reader.result
             console.log(fileSource);
-            instruction_img.hidden = true
+            instruction_img.style.display = "none"
             photo_contact.src = fileSource
             photo_contact.alt = "image du contact"
-            photo_contact.hidden = false
+            photo_contact.style.display = "block"
+            photo_contact.style.display = "block"
             message_img.innerText = ""
             drop_image.style.border = ""
             validation_img = true
             source = fileSource
+            ss = fileSource
             return true
         }
     }
@@ -183,7 +221,7 @@ form.addEventListener("keypress", function (e) {
         e.preventDefault()
     }
 })
-form.addEventListener("submit", function (e) {
+submit.addEventListener("click", function (e) {
     e.preventDefault()
     OBJECT_FORM()
     REINIT()
@@ -204,58 +242,81 @@ function OBJECT_FORM() {
     const Bio = objet_contacts.Bio
     objet_contacts.Source = source
     const Source = objet_contacts.Source
-    VALIDATION_img(objet_contacts, First_Name, Names, Numbers, Group, Email, Bio, Source)
-}
-
-// NUMBERS
-let numbers = document.querySelector('#numbers');
-numbers.addEventListener('blur', NUMBERS);
-let numberssExistants = [];
-function NUMBERS() {
-    let numbers = this.value;
-    let message_num = document.getElementById('message_num');
-    let prefixes = ['084', '085', '080', '089', 'O81', '082', '099', '097', '090'];
-    //Caractères
-    if (isNaN(numbers)) {
-        this.style.border = '2px solid red';
-        this.style.borderRadius = "5px";
-        message_num.innerHTML = 'le numero de téléphone ne contient que des chiffres';
-    }
-     //Taille
-    else if (this.value.length < 10 || this.value.length > 10) {
-        this.style.border = '2px solid red';
-        this.style.borderRadius = "5px";
-        message_num.innerText = 'Erreur, renseigner un numéro de téléphone avec 10 chiffres ';
-    }
-    // Vérification du préfixe du numéro
-    else if (!prefixes.some(prefix => numbers.startsWith(prefix))) {
-        this.style.border = "1px solid red";
-        this.style.borderRadius = "5px";
-        message_num.innerHTML = "renseigner un numéro de téléphone au format valide";
-    }
-    // Vérification de l'existence du numéro
-    else if (numberssExistants.includes(numbers)) {
-        this.style.border = "1px solid red";
-        this.style.borderRadius = "5px";
-        message_num.innerHTML = "Le numéro existe déjà.";
-    }//validation
-    else {
-        this.style.border = ""
-        message_num.innerHTML = ""
+    if (VALIDATION_img(Source)) {
+        array_contact.push(objet_contacts)
+        SHOW_CONTACT()
+        REINIT()
     }
 }
 
 // Validation_img du formulaire (Liste des contacts)
-function VALIDATION_img(objet_contacts, First_Name, Names, Numbers, Group, Email, Bio, Source) {
+function VALIDATION_img(Source) {
     if (Source.length == 0) {
         drop_image.style.border = "2px solid red"
         drop_image.style.borderRadius = "5px"
         message_img.innerText = "Inserer une image"
     }
-    else if (FIRSTNAME() && NAME() && GROUP() && BIO() && EMAIL() && validation_img) {
-        array_contact.push(objet_contacts)
+    else if (INDENTITY(first_name, message_fn) && INDENTITY(names, message_n) && NUMBERS() && BIO() && GROUP(group, message_g) && EMAIL() && validation_img) {
         console.log(array_contact);
-        const contact_box_list = document.querySelector(".contact_box_list")
+        return true
+    }
+}
+
+
+// Reinitialisation de formulaire.
+let reinit = document.querySelector('#reinit');
+reinit.addEventListener('click', REINIT)
+function REINIT() {
+    first_name.value = '';
+    names.value = '';
+    numbers.value = '';
+    group.value = '';
+    email.value = '';
+    bio.value = '';
+    first_name.style.border = '';
+    first_name.style.borderRadius = '';
+    message_fn.innerText = '';
+    message_n.innerText = '';
+    names.style.border = '';
+    numbers.style.border = '';
+    message_num.innerText = '';
+    message_em.innerText = '';
+    email.style.border = '';
+    message_g.innerText = '';
+    group.style.border = '';
+    bio.style.border = '';
+    message_bio.innerText = '';
+    instruction_img.style.display = "block"
+    photo_contact.style.display = "none"
+    input_img.value = ""
+    source = ""
+    photo_contact.src = "#"
+    photo_contact.alt = ""
+};
+
+function ICON_DELETE(icon_delete, element) {
+    icon_delete.addEventListener("click", function () {
+        let index = array_contact.indexOf(element)
+        if (confirm("Etes-vous sûr de vouloir supprimer") == true) {
+            array_contact.splice(index, 1)
+            SHOW_CONTACT()
+            console.log(array_contact);
+        }
+    })
+}
+
+function SHOW_CONTACT() {
+    rt.innerHTML = ""
+    for (let i = 0; i < array_contact.length; i++) {
+        let element = array_contact[i];
+        console.log(element);
+        const First_Name = element.First_Name
+        const Names = element.Names
+        const Group = element.Group
+        const Email = element.Email
+        const Bio = element.Bio
+        const Numbers = element.Numbers
+        const Source_img = element.Source
         const div = document.createElement("div")
         contact_box_list.appendChild(div)
         div.classList.add("contact_list")
@@ -264,7 +325,7 @@ function VALIDATION_img(objet_contacts, First_Name, Names, Numbers, Group, Email
         div_list_img.classList.add("contact_list_img")
         const img_contact = document.createElement("img")
         div_list_img.appendChild(img_contact)
-        img_contact.src = Source
+        img_contact.src = Source_img
         img_contact.alt = "photo du contact"
         const div_list_text = document.createElement("div")
         div.appendChild(div_list_text)
@@ -283,11 +344,11 @@ function VALIDATION_img(objet_contacts, First_Name, Names, Numbers, Group, Email
         div_part1.appendChild(icone_edit)
         icone_edit.id = "space_between_icon"
         icone_edit.src = "edit icon.svg"
-        icone_edit.alt = "icone modifier"
-        const icone_delete = document.createElement("img")
-        div_part1.appendChild(icone_delete)
-        icone_delete.src = "delete icon.svg"
-        icone_delete.alt = "icone supprimer"
+        icone_edit.alt = "icone edit"
+        const icon_delete = document.createElement("img")
+        div_part1.appendChild(icon_delete)
+        icon_delete.src = "delete icon.svg"
+        icon_delete.alt = "icone supprimer"
         const div_part2 = document.createElement("div")
         div_text.appendChild(div_part2)
         const p2 = document.createElement("p")
@@ -298,35 +359,66 @@ function VALIDATION_img(objet_contacts, First_Name, Names, Numbers, Group, Email
         div_part2.appendChild(p3)
         p3.id = "paragraph_bio"
         p3.innerText = `${Bio}`
-        reinit.click()
-        DELET(icone_delete, contact_box_list, div)
-    }        
+        ICON_DELETE(icon_delete, element)
+        ICONE_EDIT(icone_edit, First_Name, Names, Numbers, Bio, Email, Group, element, Source_img)
+    }
+}
+let indexo = ""
+function ICONE_EDIT(icone_edit, First_Name, Names, Numbers, Bio, Email, Group, element, Source_img) {
+    icone_edit.addEventListener("click", function () {
+        first_name.value = First_Name
+        names.value = Names
+        numbers.value = Numbers
+        bio.value = Bio
+        email.value = Email
+        group.value = Group
+        console.log(Source_img);
+        submit.style.display = "none"
+        reinit.style.display = "none"
+        edit.style.display = "block"
+        exit.style.display = "block"
+        indexo = array_contact.indexOf(element)
+        console.log('index : ', indexo);
+        console.log("on va voir :", first_name.value);
+    })
+}
+console.log(indexo);
+edit.addEventListener("click", BTN_EDIT)
+function BTN_EDIT() {
+    object_edit = {
+        First_Name: first_name.value,
+        Names: names.value,
+        Numbers: numbers.value,
+        Bio: bio.value,
+        Email: email.value,
+        Group: group.value,
+        Source: ss
+    }
+    console.log(object_edit);
+    console.log(array_contact);
+    edit.style.display = "none"
+    submit.style.display = "block"
+    exit.style.display = "none"
+    reinit.style.display = "block"
+    if (VALIDATION_img(object_edit.Source)) {
+        array_contact[indexo] = object_edit
+        SHOW_CONTACT()
+        REINIT()
+    }
+    else {
+        submit.style.display = "none"
+        reinit.style.display = "none"
+        edit.style.display = "block"
+        exit.style.display = "block"
 }
 
-// Reinitialisation de formulaire.
-let reinit = document.querySelector('#reinit');
-reinit.addEventListener('click', REINIT)
-function REINIT() {
-    first_name.value = '';
-    names.value = '';
-    numbers.value = '';
-    group.value = '';
-    email.value = '';
-    bio.value = '';
-    first_name.style.border = '';
-    first_name.style.borderRadius = '';
-    message_fn.innerText = '';
-    message_n.innerText = '';
-    names.style.border = '';
-    message_em.innerText = '';
-    email.style.border = '';
-    message_g.innerText = '';
-    group.style.border = '';
-    bio.style.border = '';
-    message_bio.innerText = '';
-    instruction_img.hidden = false
-    photo_contact.hidden = true
-};
+exit.addEventListener("click", function () {
+    REINIT()
+    edit.style.display = "none"
+    submit.style.display = "block"
+    exit.style.display = "none"
+    reinit.style.display = "block"
+});
 
 function DELET(icone_delete, contact_box_list, div) {
     icone_delete.addEventListener("click", function () {
