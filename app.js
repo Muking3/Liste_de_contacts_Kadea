@@ -80,9 +80,7 @@ function NUMBERS() {
         message_num.innerHTML = "Le numéro existe déjà.";
     }//validation
     else {
-        numbers.style.border = ""
-        numbers.style.borderRadius = "";
-        message_num.innerHTML = "";
+        INIT(numbers, message_num)
         return true
     }
 }
@@ -101,9 +99,8 @@ function GROUP(input, message) {
 }
 
 // Champ E-MAIL
-let email = document.querySelector('#email')
-let message_em = document.querySelector('#message_em')
-// let mailExistant = []
+const email = document.querySelector('#email')
+const message_em = document.querySelector('#message_em')
 email.addEventListener('blur', EMAIL)
 function EMAIL() {
     let Regex = /^[A-Za-z0-9\.-\_]+@[A-Za-z0-9]+(\.)[A-Za-z0-9]{2,}$/
@@ -120,16 +117,14 @@ function EMAIL() {
         message_em.innerText = 'Adresse déjà existante';
     }
     else {
-        message_em.innerText = '';
-        email.style.border = '';
-        email.style.borderRadius = '';
+        INIT(email, message_em)
         return true
     }
 };
 
 //Champs BiO
 const bio = document.querySelector('#text_bio')
-let message_bio = document.getElementById('message_bio')
+const message_bio = document.getElementById('message_bio')
 bio.addEventListener('input', BIO)
 function BIO() {
     if (bio.value.length < 10) {
@@ -144,8 +139,7 @@ function BIO() {
         message_bio.innerText = 'Erreur, nombre de caractères superieur à 150'
     }
     else {
-        bio.style.border = ''
-        message_bio.innerText = ''
+        INIT(bio, message_bio)
         return true
     }
 }
@@ -253,35 +247,22 @@ function VALIDATION_img(Source) {
 
 
 // Reinitialisation de formulaire.
-let reinit = document.querySelector('#reinit');
+const reinit = document.getElementById('reinit');
 reinit.addEventListener('click', REINIT)
 function REINIT() {
-    first_name.value = '';
-    names.value = '';
-    numbers.value = '';
-    group.value = '';
-    email.value = '';
-    bio.value = '';
-    first_name.style.border = '';
-    first_name.style.borderRadius = '';
-    message_fn.innerText = '';
-    message_n.innerText = '';
-    names.style.border = '';
-    numbers.style.border = '';
-    message_num.innerText = '';
-    message_em.innerText = '';
-    email.style.border = '';
-    message_g.innerText = '';
-    group.style.border = '';
-    bio.style.border = '';
-    message_bio.innerText = '';
+    INIT(first_name, message_fn)
+    INIT(names, message_n)
+    INIT(group, message_g)
+    INIT(numbers, message_num)
+    INIT(email, message_em)
+    INIT(bio, message_bio)
     instruction_img.style.display = "block"
     photo_contact.style.display = "none"
     input_img.value = ""
     source = ""
     photo_contact.src = "#"
     photo_contact.alt = ""
-};
+}
 
 function ICON_DELETE(icon_delete, element) {
     icon_delete.addEventListener("click", function () {
