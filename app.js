@@ -182,6 +182,7 @@ function OBJECT_FORM() {
     const Source = objet_contacts.Source
     if (VALIDATION(Source)) {
         array_contact.push(objet_contacts)
+        console.log(array_contact);
         SHOW_CONTACT()
         REINIT()
     }
@@ -196,37 +197,22 @@ function VALIDATION(Source) {
         return true
     }
 }
-
-
 // Reinitialisation de formulaire.
 const reinit = document.getElementById('reinit');
 reinit.addEventListener('click', REINIT)
 function REINIT() {
     INIT(first_name, message_fn)
-    // INIT(names, message_n)
-    // INIT(group, message_g)
-    // INIT(numbers, message_num)
-    // INIT(email, message_em)
-    // INIT(bio, message_bio)
-    // first_name.value = '';
-    // names.value = '';
-    // numbers.value = '';
-    // group.value = '';
-    // email.value = '';
-    // bio.value = '';
-    // first_name.style.border = '';
-    // first_name.style.borderRadius = '';
-    // message_fn.innerText = '';
-    // message_n.innerText = '';
-    // names.style.border = '';
-    // numbers.style.border = '';
-    // message_num.innerText = '';
-    // message_em.innerText = '';
-    // email.style.border = '';
-    // message_g.innerText = '';
-    // group.style.border = '';
-    // bio.style.border = '';
-    // message_bio.innerText = '';
+    INIT(names, message_n)
+    INIT(group, message_g)
+    INIT(numbers, message_num)
+    INIT(email, message_em)
+    INIT(bio, message_bio)
+    first_name.value = '';
+    names.value = '';
+    numbers.value = '';
+    group.value = '';
+    email.value = '';
+    bio.value = '';
     instruction_img.style.display = "block"
     photo_contact.style.display = "none"
     input_img.value = ""
@@ -234,17 +220,6 @@ function REINIT() {
     photo_contact.src = "#"
     photo_contact.alt = ""
 }
-function ICON_DELETE(icon_delete, element) {
-    icon_delete.addEventListener("click", function () {
-        let index = array_contact.indexOf(element)
-        if (confirm("Etes-vous sûr de vouloir supprimer") == true) {
-            array_contact.splice(index, 1)
-            SHOW_CONTACT()
-            console.log(array_contact);
-        }
-    })
-}
-
 function SHOW_CONTACT() {
     rt.innerHTML = ""
     for (let i = 0; i < array_contact.length; i++) {
@@ -257,55 +232,73 @@ function SHOW_CONTACT() {
         const Bio = element.Bio
         const Numbers = element.Numbers
         const Source_img = element.Source
-        const div = document.createElement("div")
-        rt.appendChild(div)
-        div.classList.add("contact_list")
-        const div_list_img = document.createElement("div")
-        div.appendChild(div_list_img)
-        div_list_img.classList.add("contact_list_img")
-        const img_contact = document.createElement("img")
-        div_list_img.appendChild(img_contact)
-        img_contact.src = Source_img
-        img_contact.alt = "photo du contact"
-        const div_list_text = document.createElement("div")
-        div.appendChild(div_list_text)
-        div_list_text.classList.add("contact_list_text")
-        const div_text = document.createElement("div")
-        div_list_text.appendChild(div_text)
-        const div_text_part = document.createElement("div")
-        div_text.appendChild(div_text_part)
-        div_text_part.classList.add("contact_text")
-        const p1 = document.createElement("p")
-        div_text_part.appendChild(p1)
-        p1.innerText = `${First_Name} ${Names}-${Group}`
-        const div_part1 = document.createElement("div")
-        div_text_part.appendChild(div_part1)
-        const icone_edit = document.createElement("img")
-        div_part1.appendChild(icone_edit)
-        icone_edit.id = "space_between_icon"
-        icone_edit.src = "edit icon.svg"
-        icone_edit.alt = "icone edit"
-        const icon_delete = document.createElement("img")
-        div_part1.appendChild(icon_delete)
-        icon_delete.src = "delete icon.svg"
-        icon_delete.alt = "icone supprimer"
-        const div_part2 = document.createElement("div")
-        div_text.appendChild(div_part2)
-        const p2 = document.createElement("p")
-        div_part2.appendChild(p2)
-        p2.id = "paragraph_num_email"
-        p2.innerText = `${Numbers}-${Email}`
-        const p3 = document.createElement("p")
-        div_part2.appendChild(p3)
-        p3.id = "paragraph_bio"
-        p3.innerText = `${Bio}`
-        ICON_DELETE(icon_delete, element)
+        const template_contact = document.querySelector("#template_contact")
+        const clone = document.importNode(template_contact.content, true)
+        console.log(clone);
+        const photo_contact_list = clone.querySelector("#photo_contact_list")
+        photo_contact_list.src = Source_img
+        photo_contact_list.alt = "photo du contact"
+        const para = clone.querySelector("#para")
+        para.textContent = `${First_Name} ${Names}-${Group}`
+        const paragraph_num_email = clone.querySelector("#paragraph_num_email")
+        paragraph_num_email.textContent = `${Numbers}-${Email}`
+        const paragraph_bio = clone.querySelector("#paragraph_bio")
+        paragraph_bio.textContent = `${Bio}`
+        rt.appendChild(clone)
+        const icon_delete = clone.querySelector("#delete")
+        console.log(icon_delete);
+        const icone_edit = clone.querySelector("#editz")
+
+        // const div = document.createElement("div")
+        // rt.appendChild(div)
+        // div.classList.add("contact_list")
+        // const div_list_img = document.createElement("div")
+        // div.appendChild(div_list_img)
+        // div_list_img.classList.add("contact_list_img")
+        // const img_contact = document.createElement("img")
+        // div_list_img.appendChild(img_contact)
+        // img_contact.src = Source_img
+        // img_contact.alt = "photo du contact"
+        // const div_list_text = document.createElement("div")
+        // div.appendChild(div_list_text)
+        // div_list_text.classList.add("contact_list_text")
+        // const div_text = document.createElement("div")
+        // div_list_text.appendChild(div_text)
+        // const div_text_part = document.createElement("div")
+        // div_text.appendChild(div_text_part)
+        // div_text_part.classList.add("contact_text")
+        // const p1 = document.createElement("p")
+        // div_text_part.appendChild(p1)
+        // p1.innerText = `${First_Name} ${Names}-${Group}`
+        // const div_part1 = document.createElement("div")
+        // div_text_part.appendChild(div_part1)
+        // const icone_edit = document.createElement("img")
+        // div_part1.appendChild(icone_edit)
+        // icone_edit.id = "space_between_icon"
+        // icone_edit.src = "edit icon.svg"
+        // icone_edit.alt = "icone edit"
+        // const icon_delete = document.createElement("img")
+        // div_part1.appendChild(icon_delete)
+        // icon_delete.src = "delete icon.svg"
+        // icon_delete.alt = "icone supprimer"
+        // const div_part2 = document.createElement("div")
+        // div_text.appendChild(div_part2)
+        // const p2 = document.createElement("p")
+        // div_part2.appendChild(p2)
+        // p2.id = "paragraph_num_email"
+        // p2.innerText = `${Numbers}-${Email}`
+        // const p3 = document.createElement("p")
+        // div_part2.appendChild(p3)
+        // p3.id = "paragraph_bio"
+        // p3.innerText = `${Bio}`
+        ICON_DELETE(icon_delete, i)
         ICONE_EDIT(icone_edit, First_Name, Names, Numbers, Bio, Email, Group, element, Source_img)
     }
 }
 let indexo = ""
 function ICONE_EDIT(icone_edit, First_Name, Names, Numbers, Bio, Email, Group, element, Source_img) {
     icone_edit.addEventListener("click", function () {
+        console.log('dj');
         first_name.value = First_Name
         names.value = Names
         numbers.value = Numbers
@@ -326,7 +319,6 @@ function ICONE_EDIT(icone_edit, First_Name, Names, Numbers, Bio, Email, Group, e
         console.log("on va voir :", first_name.value);
     })
 }
-console.log(indexo);
 edit.addEventListener("click", BTN_EDIT)
 function BTN_EDIT() {
     object_edit = {
@@ -356,7 +348,6 @@ function BTN_EDIT() {
         exit.style.display = "block"
     }
 }
-
 exit.addEventListener("click", function () {
     REINIT()
     edit.style.display = "none"
@@ -364,3 +355,21 @@ exit.addEventListener("click", function () {
     exit.style.display = "none"
     reinit.style.display = "block"
 })
+function ICON_DELETE(icon_delete, index) {
+    icon_delete.addEventListener("click", function () {
+        // let index = array_contact.indexOf(element)
+        if (confirm("Etes-vous sûr de vouloir supprimer") == true) {
+            array_contact.splice(index, 1)
+            SHOW_CONTACT()
+            console.log(array_contact);
+        }
+    })
+}
+
+const template_contact = document.querySelector("#template_contact")
+const clone = document.importNode(template_contact.content, true)
+console.log(clone);
+const photo_contact_list = clone.querySelector("#photo_contact_list")
+const para = clone.querySelector("#para")
+const paragraph_num_email = clone.querySelector("#paragraph_num_email")
+const paragraph_bio = clone.querySelector("#paragraph_bio")

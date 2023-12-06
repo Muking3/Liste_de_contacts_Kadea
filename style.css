@@ -107,7 +107,7 @@ label {
     /* display: none; */
     width: 100%;
     height: 138px;
-    /* opacity: 0; */
+    opacity: 0;
     /* position: absolute; */
     z-index: 2;
 }
@@ -226,7 +226,7 @@ label {
     font-weight: 400;
 }
 
-#space_between_icon {
+.space_between_icon {
     padding-right: 10px;
 }
 
