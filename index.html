@@ -34,6 +34,7 @@
                         <div>
                             <label class="weight_medium">Télephone</label>
                             <input class="input_info f_size" type="text" id="numbers" name="Numbers">
+                            <span id="message_num"></span>
                         </div>
                         <div>
                             <label class="weight_medium">Groupe</label>
@@ -63,9 +64,14 @@
                     </div>
                 </div>
                 <div class="contact_btn">
-                    <button type="submit"
-                        class="f_size btn_border color_text weight_medium container-bgc">Créer</button>
-                    <button type="button" class="f_size btn_border btn_reset color_text weight_medium" id="reinit">Rénit</button>
+                    <button type="submit" class="f_size btn_border color_text weight_medium container-bgc"
+                        id="submit">Créer</button>
+                    <button type="button" class="f_size btn_border color_text weight_medium container-bgc"
+                        id="edit">Modifier</button>
+                    <button type="button" class="f_size btn_border btn_reset color_text weight_medium"
+                        id="reinit">Rénit</button>
+                    <button type="button" class="f_size btn_border btn_reset color_text weight_medium"
+                        id="exit">Annuler</button>
                 </div>
             </form>
             <div class="contact_box_list">
@@ -73,6 +79,7 @@
                     <div class="contact_title container-bgc">
                         <h2 class="title-fs color_text">Liste des contacts</h2>
                     </div>
+                    <div id="rt"></div>
                 </div>
             </div>
         </main>
