@@ -40,23 +40,19 @@ const numbers = document.getElementById("numbers")
 const message_num = document.getElementById("message_num")
 numbers.addEventListener('blur', NUMBERS);
 function NUMBERS() {
-    // let prefixes = ['084', '085', '080', '089', '081', '082', '099', '097', '090'];
-    let regex = /^084|^085|^080|^089|^081|^082|^099|^097|^090/
+    let regex = /^(084|085|080|089|081|082|099|097|090)/
+    let reg = /\d{10}$/
     if (isNaN(numbers.value)) {
         INPUT_STYLE(numbers)
-        message_num.innerText = 'le numero de téléphone ne contient que des chiffres';
+        message_num.innerText = 'Le numero de téléphone ne contient que des chiffres';
     }
-    else if (numbers.value.length !== 10) {
+    else if (!reg.test(numbers.value)) {
         INPUT_STYLE(numbers)
         message_num.innerText = 'Erreur, renseigner un numéro de téléphone avec 10 chiffres ';
     }
-    // else if (!prefixes.some(prefix => numbers.value.startsWith(prefix))) {
-    //     INPUT_STYLE(numbers)
-    //     message_num.innerText = "renseigner un numéro de téléphone au format valide";
-    // }
-    else if (regex.test(numbers.value)) {
+    else if (!regex.test(numbers.value)) {
         INPUT_STYLE(numbers)
-        message_num.innerText = "renseigner un numéro de téléphone au format valide";
+        message_num.innerText = "Renseigner un numéro de téléphone au format valide";
     }
     else if (array_contact.some(obj => obj.Numbers === numbers.value)) {
         INPUT_STYLE(numbers)
