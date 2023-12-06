@@ -235,6 +235,8 @@ function SHOW_CONTACT() {
         const template_contact = document.querySelector("#template_contact")
         const clone = document.importNode(template_contact.content, true)
         console.log(clone);
+        console.log(clone.innerHTML);
+        const contact_list = document.querySelector("#contact_list")
         const photo_contact_list = clone.querySelector("#photo_contact_list")
         photo_contact_list.src = Source_img
         photo_contact_list.alt = "photo du contact"
@@ -244,10 +246,10 @@ function SHOW_CONTACT() {
         paragraph_num_email.textContent = `${Numbers}-${Email}`
         const paragraph_bio = clone.querySelector("#paragraph_bio")
         paragraph_bio.textContent = `${Bio}`
-        rt.appendChild(clone)
-        const icon_delete = clone.querySelector("#delete")
+        rt.appendChild(contact_list)
+        const icon_delete = document.querySelector("#delete")
         console.log(icon_delete);
-        const icone_edit = clone.querySelector("#editz")
+        const icone_edit = document.querySelector("#editz")
 
         // const div = document.createElement("div")
         // rt.appendChild(div)
@@ -366,10 +368,10 @@ function ICON_DELETE(icon_delete, index) {
     })
 }
 
-const template_contact = document.querySelector("#template_contact")
-const clone = document.importNode(template_contact.content, true)
-console.log(clone);
-const photo_contact_list = clone.querySelector("#photo_contact_list")
-const para = clone.querySelector("#para")
-const paragraph_num_email = clone.querySelector("#paragraph_num_email")
-const paragraph_bio = clone.querySelector("#paragraph_bio")
+// const template_contact = document.querySelector("#template_contact")
+// const clone = document.importNode(template_contact.content, true)
+// console.log(clone);
+// const photo_contact_list = clone.querySelector("#photo_contact_list")
+// const para = clone.querySelector("#para")
+// const paragraph_num_email = clone.querySelector("#paragraph_num_email")
+// const paragraph_bio = clone.querySelector("#paragraph_bio")
