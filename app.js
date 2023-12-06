@@ -16,7 +16,7 @@ function COMPARE(input, message, min, max) {
     }
     else if (value_id.length > max) {
         INPUT_STYLE(input)
-        message.innerText = `Nombre de caractere insuffisant, ne doit pas etre en-deçà de ${max} caracteres`
+        message.innerText = `Nombre de caractere insuffisant, ne doit pas etre au delà de ${max} caracteres`
     }
     else {
         INIT(input, message)
@@ -40,7 +40,8 @@ const numbers = document.getElementById("numbers")
 const message_num = document.getElementById("message_num")
 numbers.addEventListener('blur', NUMBERS);
 function NUMBERS() {
-    let prefixes = ['084', '085', '080', '089', '081', '082', '099', '097', '090'];
+    // let prefixes = ['084', '085', '080', '089', '081', '082', '099', '097', '090'];
+    let regex = /^084|^085|^080|^089|^081|^082|^099|^097|^090/
     if (isNaN(numbers.value)) {
         INPUT_STYLE(numbers)
         message_num.innerText = 'le numero de téléphone ne contient que des chiffres';
@@ -49,7 +50,11 @@ function NUMBERS() {
         INPUT_STYLE(numbers)
         message_num.innerText = 'Erreur, renseigner un numéro de téléphone avec 10 chiffres ';
     }
-    else if (!prefixes.some(prefix => numbers.value.startsWith(prefix))) {
+    // else if (!prefixes.some(prefix => numbers.value.startsWith(prefix))) {
+    //     INPUT_STYLE(numbers)
+    //     message_num.innerText = "renseigner un numéro de téléphone au format valide";
+    // }
+    else if (regex.test(numbers.value)) {
         INPUT_STYLE(numbers)
         message_num.innerText = "renseigner un numéro de téléphone au format valide";
     }
