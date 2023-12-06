@@ -50,7 +50,7 @@ function NUMBERS() {
     } else if (!reg.test(numbers.value)) {
         INPUT_STYLE(numbers, 'red')
         message_num.innerText = 'Erreur, renseigner un numéro de téléphone avec 10 chiffres ';
-    } else if (EXIST()) {
+    } else if (EXIST_NUM()) {
         INPUT_STYLE(numbers, 'red')
         message_num.innerText = "Le numéro existe déjà.";
     } else if (!regex.test(numbers.value)) {
@@ -62,8 +62,8 @@ function NUMBERS() {
     }
 }
 
-function EXIST(klklk, input) {
-    if (array_contact.some(obj => obj.klklk === input.value)) {
+function EXIST_NUM() {
+    if (array_contact.some(obj => obj.Numbers === numbers.value)) {
         return kl
     }
 }
@@ -88,19 +88,25 @@ function GROUP(input, message, max) {
 const email = document.querySelector('#email')
 const message_em = document.querySelector('#message_em')
 email.addEventListener('blur', EMAIL)
+let k = true
 function EMAIL() {
     let Regex = /^[A-Za-z0-9\.-\_]+@[A-Za-z0-9]+(\.)[A-Za-z0-9]{2,}$/
     if (!Regex.test(email.value)) {
         INPUT_STYLE(email, 'red')
         message_em.innerText = 'Adresse invalide!'
     }
-    else if (array_contact.some(obj => obj.Email === email.value)) {
+    else if (EXIST_EMAIL()) {
         INPUT_STYLE(email, 'red')
         message_em.innerText = 'Adresse déjà existante';
     }
     else {
         INIT(email, message_em)
         return true
+    }
+}
+function EXIST_EMAIL() {
+    if (array_contact.some(obj => obj.Email === email.value)) {
+        return k
     }
 }
 //Champs BiO
@@ -192,7 +198,7 @@ function VALIDATION(Source) {
         INPUT_STYLE(drop_image, 'red')
         message_img.innerText = "Inserer une image"
     }
-    else if (COMPARE(first_name, message_fn, 3, 50) && COMPARE(names, message_n, 3, 50) && NUMBERS() && COMPARE(bio, message_bio, 10, 200) && GROUP(group, message_g, 10) && EMAIL() && validate_img) {
+    else if (COMPARE(first_name, message_fn, 3, 50, 'red') && COMPARE(names, message_n, 3, 50, 'red') && NUMBERS() && COMPARE(bio, message_bio, 10, 200) && GROUP(group, message_g, 10) && EMAIL() && validate_img) {
         return true
     }
 }
@@ -291,6 +297,7 @@ function SHOW_CONTACT() {
 }
 let indexo
 let n
+let m
 function ICONE_EDIT(icone_edit, First_Name, Names, Numbers, Bio, Email, Group, element, Source_img) {
     icone_edit.addEventListener("click", function () {
         REINIT()
@@ -299,13 +306,15 @@ function ICONE_EDIT(icone_edit, First_Name, Names, Numbers, Bio, Email, Group, e
         names.value = Names
         numbers.value = Numbers
         n = Numbers
+        m = Email
         console.log(n);
         bio.value = Bio
         email.value = Email
         group.value = Group
         console.log(Source_img);
         // instruction_img.style.display = "none"
-        // photo_contact.src = Source_img
+        photo_contact.src = Source_img
+        ss = Source_img
         // photo_contact.alt = "image du contact"
         // photo_contact.style.display = "block"
         submit.style.display = "none"
@@ -327,6 +336,7 @@ function BTN_EDIT() {
         Email: email.value,
         Group: group.value,
         Source: ss
+        // Source : source
     }
     console.log(object_edit);
     console.log(array_contact);
@@ -337,11 +347,15 @@ function BTN_EDIT() {
     if (numbers.value == n) {
         kl = false
     }
+    if (email.value == m) {
+        k = false
+    }
     if (VALIDATION(object_edit.Source)) {
         array_contact[indexo] = object_edit
         SHOW_CONTACT()
         REINIT()
         kl = true
+        k = true
     }
     else {
         submit.style.display = "none"
@@ -363,6 +377,11 @@ function ICON_DELETE(icon_delete, index) {
         if (confirm("Etes-vous sûr de vouloir supprimer") == true) {
             array_contact.splice(index, 1)
             SHOW_CONTACT()
+            REINIT()
+            edit.style.display = "none"
+            submit.style.display = "block"
+            exit.style.display = "none"
+            reinit.style.display = "block"
             console.log(array_contact)
         }
     })
