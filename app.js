@@ -13,12 +13,10 @@ function COMPARE(input, message, min, max, color) {
     if (value_id.length < min) {
         INPUT_STYLE(input, color)
         message.innerText = `Nombre de caractere insuffisant, ne doit pas etre en-deçà de ${min} caracteres`
-    }
-    else if (value_id.length > max) {
+    } else if (value_id.length > max) {
         INPUT_STYLE(input, color)
         message.innerText = `Nombre de caractere insuffisant, ne doit pas etre au delà de ${max} caracteres`
-    }
-    else {
+    } else {
         INIT(input, message)
         return true
     }
@@ -42,38 +40,32 @@ numbers.addEventListener('blur', function () {
     // if (NUMBERS() && EXIST()) { }
     NUMBERS()
 });
+let kl = true
 function NUMBERS() {
     let regex = /^(084|085|080|089|081|082|099|097|090)/
     let reg = /\d{10}$/
     if (isNaN(numbers.value)) {
         INPUT_STYLE(numbers, 'red')
         message_num.innerText = 'Le numero de téléphone ne contient que des chiffres';
-    }
-    else if (!reg.test(numbers.value)) {
+    } else if (!reg.test(numbers.value)) {
         INPUT_STYLE(numbers, 'red')
         message_num.innerText = 'Erreur, renseigner un numéro de téléphone avec 10 chiffres ';
-    }
-    else if (EXIST()) {
+    } else if (EXIST()) {
         INPUT_STYLE(numbers, 'red')
         message_num.innerText = "Le numéro existe déjà.";
-    }
-    else if (!regex.test(numbers.value)) {
+    } else if (!regex.test(numbers.value)) {
         INPUT_STYLE(numbers, 'red')
         message_num.innerText = "Renseigner un numéro de téléphone au format valide";
-    }
-    else {
+    } else {
         INIT(numbers, message_num)
         return true
     }
 }
-function EXIST() {
-    if (array_contact.some(obj => obj.Numbers === numbers.value)) {
-        return true
+
+function EXIST(klklk, input) {
+    if (array_contact.some(obj => obj.klklk === input.value)) {
+        return kl
     }
-    // else {
-    //     INIT(numbers, message_num)
-    //     return true
-    // }
 }
 // Champ GROUPE
 const group = document.getElementById('group')
@@ -307,6 +299,7 @@ function ICONE_EDIT(icone_edit, First_Name, Names, Numbers, Bio, Email, Group, e
         names.value = Names
         numbers.value = Numbers
         n = Numbers
+        console.log(n);
         bio.value = Bio
         email.value = Email
         group.value = Group
@@ -341,13 +334,14 @@ function BTN_EDIT() {
     submit.style.display = "block"
     exit.style.display = "none"
     reinit.style.display = "block"
-    // if (numbers.value == n) {
-    //     return true
-    // }
+    if (numbers.value == n) {
+        kl = false
+    }
     if (VALIDATION(object_edit.Source)) {
         array_contact[indexo] = object_edit
         SHOW_CONTACT()
         REINIT()
+        kl = true
     }
     else {
         submit.style.display = "none"
