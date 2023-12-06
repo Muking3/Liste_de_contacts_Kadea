@@ -1,6 +1,6 @@
 //Fonction STANDARD
-function INPUT_STYLE(input) {
-    input.style.border = "2px solid red"
+function INPUT_STYLE(input, color) {
+    input.style.border = `2px solid ${color}`
     input.style.borderRadius = "5px"
 }
 function INIT(input, message) {
@@ -8,14 +8,14 @@ function INIT(input, message) {
     input.style.borderRadius = ""
     message.innerText = ""
 }
-function COMPARE(input, message, min, max) {
+function COMPARE(input, message, min, max, color) {
     let value_id = input.value.trim()
     if (value_id.length < min) {
-        INPUT_STYLE(input)
+        INPUT_STYLE(input, color)
         message.innerText = `Nombre de caractere insuffisant, ne doit pas etre en-deçà de ${min} caracteres`
     }
     else if (value_id.length > max) {
-        INPUT_STYLE(input)
+        INPUT_STYLE(input, color)
         message.innerText = `Nombre de caractere insuffisant, ne doit pas etre au delà de ${max} caracteres`
     }
     else {
@@ -27,41 +27,53 @@ function COMPARE(input, message, min, max) {
 const first_name = document.getElementById("first_name")
 const message_fn = document.getElementById("message_fn")
 first_name.addEventListener("blur", function () {
-    COMPARE(first_name, message_fn, 3, 50)
+    COMPARE(first_name, message_fn, 3, 50, 'red')
 })
 // Champ NOM
 const names = document.getElementById("names")
 const message_n = document.getElementById("message_n")
 names.addEventListener("blur", function () {
-    COMPARE(names, message_n, 3, 50)
+    COMPARE(names, message_n, 3, 50, 'red')
 })
 // Champ TEL
 const numbers = document.getElementById("numbers")
 const message_num = document.getElementById("message_num")
-numbers.addEventListener('blur', NUMBERS);
+numbers.addEventListener('blur', function () {
+    // if (NUMBERS() && EXIST()) { }
+    NUMBERS()
+});
 function NUMBERS() {
     let regex = /^(084|085|080|089|081|082|099|097|090)/
     let reg = /\d{10}$/
     if (isNaN(numbers.value)) {
-        INPUT_STYLE(numbers)
+        INPUT_STYLE(numbers, 'red')
         message_num.innerText = 'Le numero de téléphone ne contient que des chiffres';
     }
     else if (!reg.test(numbers.value)) {
-        INPUT_STYLE(numbers)
+        INPUT_STYLE(numbers, 'red')
         message_num.innerText = 'Erreur, renseigner un numéro de téléphone avec 10 chiffres ';
     }
-    else if (!regex.test(numbers.value)) {
-        INPUT_STYLE(numbers)
-        message_num.innerText = "Renseigner un numéro de téléphone au format valide";
-    }
-    else if (array_contact.some(obj => obj.Numbers === numbers.value)) {
-        INPUT_STYLE(numbers)
+    else if (EXIST()) {
+        INPUT_STYLE(numbers, 'red')
         message_num.innerText = "Le numéro existe déjà.";
+    }
+    else if (!regex.test(numbers.value)) {
+        INPUT_STYLE(numbers, 'red')
+        message_num.innerText = "Renseigner un numéro de téléphone au format valide";
     }
     else {
         INIT(numbers, message_num)
         return true
     }
+}
+function EXIST() {
+    if (array_contact.some(obj => obj.Numbers === numbers.value)) {
+        return true
+    }
+    // else {
+    //     INIT(numbers, message_num)
+    //     return true
+    // }
 }
 // Champ GROUPE
 const group = document.getElementById('group')
@@ -72,7 +84,7 @@ group.addEventListener("blur", function () {
 function GROUP(input, message, max) {
     let value_id = input.value.trim()
     if (value_id.length > max) {
-        INPUT_STYLE(input)
+        INPUT_STYLE(input, 'red')
         message.innerText = `Nombre de caractere insuffisant, ne doit pas etre en-deçà de ${max} caracteres`
     }
     else {
@@ -86,13 +98,12 @@ const message_em = document.querySelector('#message_em')
 email.addEventListener('blur', EMAIL)
 function EMAIL() {
     let Regex = /^[A-Za-z0-9\.-\_]+@[A-Za-z0-9]+(\.)[A-Za-z0-9]{2,}$/
-    let b_mail = Regex.test(email.value)
-    if (!b_mail) {
-        INPUT_STYLE(email)
+    if (!Regex.test(email.value)) {
+        INPUT_STYLE(email, 'red')
         message_em.innerText = 'Adresse invalide!'
     }
     else if (array_contact.some(obj => obj.Email === email.value)) {
-        INPUT_STYLE(email)
+        INPUT_STYLE(email, 'red')
         message_em.innerText = 'Adresse déjà existante';
     }
     else {
@@ -104,7 +115,7 @@ function EMAIL() {
 const bio = document.querySelector('#text_bio')
 const message_bio = document.getElementById('message_bio')
 bio.addEventListener('input', function () {
-    COMPARE(bio, message_bio, 10, 200)
+    COMPARE(bio, message_bio, 10, 200, 'red')
 })
 // Champs IMAGE
 const drop_image = document.querySelector("#drop_image")
@@ -117,8 +128,7 @@ let ss
 let validate_img
 drop_image.addEventListener("dragover", (event) => {
     event.preventDefault()
-    drop_image.style.border = "2px solid #0880D6"
-    drop_image.style.borderRadius = "5px"
+    INPUT_STYLE(drop_image, '#0880D6')
     instruction_img.style.display = "none"
 })
 drop_image.addEventListener("dragleave", () => {
@@ -173,10 +183,6 @@ form.addEventListener("keypress", function (e) {
 })
 submit.addEventListener("click", function (e) {
     e.preventDefault()
-    OBJECT_FORM()
-})
-// Creation d'un object a partir du formulaire
-function OBJECT_FORM() {
     let data = new FormData(form)
     const objet_contacts = Object.fromEntries(data)
     objet_contacts.Source = source
@@ -187,11 +193,11 @@ function OBJECT_FORM() {
         SHOW_CONTACT()
         REINIT()
     }
-}
+})
 // Validation_img du formulaire (Liste des contacts)
 function VALIDATION(Source) {
     if (Source.length == 0) {
-        INPUT_STYLE(drop_image)
+        INPUT_STYLE(drop_image, 'red')
         message_img.innerText = "Inserer une image"
     }
     else if (COMPARE(first_name, message_fn, 3, 50) && COMPARE(names, message_n, 3, 50) && NUMBERS() && COMPARE(bio, message_bio, 10, 200) && GROUP(group, message_g, 10) && EMAIL() && validate_img) {
@@ -208,12 +214,12 @@ function REINIT() {
     INIT(numbers, message_num)
     INIT(email, message_em)
     INIT(bio, message_bio)
-    first_name.value = '';
-    names.value = '';
-    numbers.value = '';
-    group.value = '';
-    email.value = '';
-    bio.value = '';
+    first_name.value = ''
+    names.value = ''
+    numbers.value = ''
+    group.value = ''
+    email.value = ''
+    bio.value = ''
     instruction_img.style.display = "block"
     photo_contact.style.display = "none"
     input_img.value = ""
@@ -226,85 +232,81 @@ function SHOW_CONTACT() {
     for (let i = 0; i < array_contact.length; i++) {
         let element = array_contact[i];
         console.log(element);
-        const First_Name = element.First_Name
-        const Names = element.Names
-        const Group = element.Group
-        const Email = element.Email
-        const Bio = element.Bio
-        const Numbers = element.Numbers
-        const Source_img = element.Source
-        const template_contact = document.querySelector("#template_contact")
-        const clone = document.importNode(template_contact.content, true)
-        console.log(clone);
-        console.log(clone.innerHTML);
-        const contact_list = document.querySelector("#contact_list")
-        const photo_contact_list = clone.querySelector("#photo_contact_list")
-        photo_contact_list.src = Source_img
-        photo_contact_list.alt = "photo du contact"
-        const para = clone.querySelector("#para")
-        para.textContent = `${First_Name} ${Names}-${Group}`
-        const paragraph_num_email = clone.querySelector("#paragraph_num_email")
-        paragraph_num_email.textContent = `${Numbers}-${Email}`
-        const paragraph_bio = clone.querySelector("#paragraph_bio")
-        paragraph_bio.textContent = `${Bio}`
-        rt.appendChild(contact_list)
-        const icon_delete = document.querySelector("#delete")
-        console.log(icon_delete);
-        const icone_edit = document.querySelector("#editz")
+        // const template_contact = document.querySelector("#template_contact")
+        // const clone = document.importNode(template_contact.content, true)
+        // console.log(clone);
+        // console.log(clone.innerHTML);
+        // const contact_list = document.querySelector("#contact_list")
+        // const photo_contact_list = clone.querySelector("#photo_contact_list")
+        // photo_contact_list.src = Source_img
+        // photo_contact_list.alt = "photo du contact"
+        // const para = clone.querySelector("#para")
+        // para.textContent = `${First_Name} ${Names}-${Group}`
+        // const paragraph_num_email = clone.querySelector("#paragraph_num_email")
+        // paragraph_num_email.textContent = `${Numbers}-${Email}`
+        // const paragraph_bio = clone.querySelector("#paragraph_bio")
+        // paragraph_bio.textContent = `${Bio}`
+        // rt.appendChild(contact_list)
+        // const icon_delete = document.querySelector("#delete")
+        // console.log(icon_delete);
+        // const icone_edit = document.querySelector("#editz")
 
-        // const div = document.createElement("div")
-        // rt.appendChild(div)
-        // div.classList.add("contact_list")
-        // const div_list_img = document.createElement("div")
-        // div.appendChild(div_list_img)
-        // div_list_img.classList.add("contact_list_img")
-        // const img_contact = document.createElement("img")
-        // div_list_img.appendChild(img_contact)
-        // img_contact.src = Source_img
-        // img_contact.alt = "photo du contact"
-        // const div_list_text = document.createElement("div")
-        // div.appendChild(div_list_text)
-        // div_list_text.classList.add("contact_list_text")
-        // const div_text = document.createElement("div")
-        // div_list_text.appendChild(div_text)
-        // const div_text_part = document.createElement("div")
-        // div_text.appendChild(div_text_part)
-        // div_text_part.classList.add("contact_text")
-        // const p1 = document.createElement("p")
-        // div_text_part.appendChild(p1)
-        // p1.innerText = `${First_Name} ${Names}-${Group}`
-        // const div_part1 = document.createElement("div")
-        // div_text_part.appendChild(div_part1)
-        // const icone_edit = document.createElement("img")
-        // div_part1.appendChild(icone_edit)
-        // icone_edit.id = "space_between_icon"
-        // icone_edit.src = "edit icon.svg"
-        // icone_edit.alt = "icone edit"
-        // const icon_delete = document.createElement("img")
-        // div_part1.appendChild(icon_delete)
-        // icon_delete.src = "delete icon.svg"
-        // icon_delete.alt = "icone supprimer"
-        // const div_part2 = document.createElement("div")
-        // div_text.appendChild(div_part2)
-        // const p2 = document.createElement("p")
-        // div_part2.appendChild(p2)
-        // p2.id = "paragraph_num_email"
-        // p2.innerText = `${Numbers}-${Email}`
-        // const p3 = document.createElement("p")
-        // div_part2.appendChild(p3)
-        // p3.id = "paragraph_bio"
-        // p3.innerText = `${Bio}`
+        const div = document.createElement("div")
+        rt.appendChild(div)
+        div.classList.add("contact_list")
+        const div_list_img = document.createElement("div")
+        div.appendChild(div_list_img)
+        div_list_img.classList.add("contact_list_img")
+        const img_contact = document.createElement("img")
+        div_list_img.appendChild(img_contact)
+        img_contact.src = element.Source
+        img_contact.alt = "photo du contact"
+        const div_list_text = document.createElement("div")
+        div.appendChild(div_list_text)
+        div_list_text.classList.add("contact_list_text")
+        const div_text = document.createElement("div")
+        div_list_text.appendChild(div_text)
+        const div_text_part = document.createElement("div")
+        div_text.appendChild(div_text_part)
+        div_text_part.classList.add("contact_text")
+        const p1 = document.createElement("p")
+        div_text_part.appendChild(p1)
+        p1.innerText = `${element.First_Name} ${element.Names} - ${element.Group}`
+        const div_part1 = document.createElement("div")
+        div_text_part.appendChild(div_part1)
+        const icone_edit = document.createElement("img")
+        div_part1.appendChild(icone_edit)
+        icone_edit.id = "space_between_icon"
+        icone_edit.src = "edit icon.svg"
+        icone_edit.alt = "icone edit"
+        const icon_delete = document.createElement("img")
+        div_part1.appendChild(icon_delete)
+        icon_delete.src = "delete icon.svg"
+        icon_delete.alt = "icone supprimer"
+        const div_part2 = document.createElement("div")
+        div_text.appendChild(div_part2)
+        const p2 = document.createElement("p")
+        div_part2.appendChild(p2)
+        p2.id = "paragraph_num_email"
+        p2.innerText = `${element.Numbers} - ${element.Email}`
+        const p3 = document.createElement("p")
+        div_part2.appendChild(p3)
+        p3.id = "paragraph_bio"
+        p3.innerText = `${element.Bio}`
         ICON_DELETE(icon_delete, i)
-        ICONE_EDIT(icone_edit, First_Name, Names, Numbers, Bio, Email, Group, element, Source_img)
+        ICONE_EDIT(icone_edit, element.First_Name, element.Names, element.Numbers, element.Bio, element.Email, element.Group, element, element.Source)
     }
 }
-let indexo = ""
+let indexo
+let n
 function ICONE_EDIT(icone_edit, First_Name, Names, Numbers, Bio, Email, Group, element, Source_img) {
     icone_edit.addEventListener("click", function () {
+        REINIT()
         console.log('dj');
         first_name.value = First_Name
         names.value = Names
         numbers.value = Numbers
+        n = Numbers
         bio.value = Bio
         email.value = Email
         group.value = Group
@@ -339,6 +341,9 @@ function BTN_EDIT() {
     submit.style.display = "block"
     exit.style.display = "none"
     reinit.style.display = "block"
+    // if (numbers.value == n) {
+    //     return true
+    // }
     if (VALIDATION(object_edit.Source)) {
         array_contact[indexo] = object_edit
         SHOW_CONTACT()
@@ -364,7 +369,7 @@ function ICON_DELETE(icon_delete, index) {
         if (confirm("Etes-vous sûr de vouloir supprimer") == true) {
             array_contact.splice(index, 1)
             SHOW_CONTACT()
-            console.log(array_contact);
+            console.log(array_contact)
         }
     })
 }
