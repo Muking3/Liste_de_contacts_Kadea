@@ -37,9 +37,8 @@ names.addEventListener("blur", function () {
 const numbers = document.getElementById("numbers")
 const message_num = document.getElementById("message_num")
 numbers.addEventListener('blur', function () {
-    // if (NUMBERS() && EXIST()) { }
     NUMBERS()
-});
+})
 let kl = true
 function NUMBERS() {
     let regex = /^(084|085|080|089|081|082|099|097|090)/
@@ -61,7 +60,6 @@ function NUMBERS() {
         return true
     }
 }
-
 function EXIST_NUM() {
     if (array_contact.some(obj => obj.Numbers === numbers.value)) {
         return kl
@@ -71,19 +69,8 @@ function EXIST_NUM() {
 const group = document.getElementById('group')
 const message_g = document.getElementById('message_g')
 group.addEventListener("blur", function () {
-    GROUP(group, message_g, 10)
+    COMPARE(group, message_g, 0, 10, "red")
 })
-function GROUP(input, message, max) {
-    let value_id = input.value.trim()
-    if (value_id.length > max) {
-        INPUT_STYLE(input, 'red')
-        message.innerText = `Nombre de caractere insuffisant, ne doit pas etre en-deçà de ${max} caracteres`
-    }
-    else {
-        INIT(input, message)
-        return true
-    }
-}
 // Champ E-MAIL
 const email = document.querySelector('#email')
 const message_em = document.querySelector('#message_em')
@@ -121,9 +108,7 @@ const input_img = document.querySelector("#input_img")
 const message_img = document.querySelector("#message_img")
 const instruction_img = document.querySelector("#instruction_img")
 const photo_contact = document.querySelector("#photo_contact")
-let source = ""
-let ss
-let validate_img
+let source, ss, validate_img
 drop_image.addEventListener("dragover", (event) => {
     event.preventDefault()
     INPUT_STYLE(drop_image, '#0880D6')
@@ -143,12 +128,10 @@ function PHOTO(file) {
     if (!tableRegex.test(fileType)) {
         INPUT_STYLE(drop_image)
         message_img.innerText = "Format de l'image invalide"
-    }
-    else if (file.size > 5242880) {
+    } else if (file.size > 5242880) {
         INPUT_STYLE(drop_image)
         message_img.innerText = "Taille de l'image depasse 5Mo"
-    }
-    else {
+    } else {
         let reader = new FileReader()
         reader.readAsDataURL(file)
         reader.onload = function () {
@@ -187,7 +170,6 @@ submit.addEventListener("click", function (e) {
     const Source = objet_contacts.Source
     if (VALIDATION(Source)) {
         array_contact.push(objet_contacts)
-        console.log(array_contact);
         SHOW_CONTACT()
         REINIT()
     }
@@ -197,8 +179,7 @@ function VALIDATION(Source) {
     if (Source.length == 0) {
         INPUT_STYLE(drop_image, 'red')
         message_img.innerText = "Inserer une image"
-    }
-    else if (COMPARE(first_name, message_fn, 3, 50, 'red') && COMPARE(names, message_n, 3, 50, 'red') && NUMBERS() && COMPARE(bio, message_bio, 10, 200) && GROUP(group, message_g, 10) && EMAIL() && validate_img) {
+    } else if (COMPARE(first_name, message_fn, 3, 50, 'red') && COMPARE(names, message_n, 3, 50, 'red') && NUMBERS() && COMPARE(bio, message_bio, 10, 200) && COMPARE(group, message_g, 0, 10, "red") && EMAIL() && validate_img) {
         return true
     }
 }
@@ -229,7 +210,6 @@ function SHOW_CONTACT() {
     rt.innerHTML = ""
     for (let i = 0; i < array_contact.length; i++) {
         let element = array_contact[i];
-        console.log(element);
         // const template_contact = document.querySelector("#template_contact")
         // const clone = document.importNode(template_contact.content, true)
         // console.log(clone);
@@ -301,29 +281,20 @@ let m
 function ICONE_EDIT(icone_edit, First_Name, Names, Numbers, Bio, Email, Group, element, Source_img) {
     icone_edit.addEventListener("click", function () {
         REINIT()
-        console.log('dj');
         first_name.value = First_Name
         names.value = Names
         numbers.value = Numbers
         n = Numbers
         m = Email
-        console.log(n);
         bio.value = Bio
         email.value = Email
         group.value = Group
-        console.log(Source_img);
-        // instruction_img.style.display = "none"
-        photo_contact.src = Source_img
         ss = Source_img
-        // photo_contact.alt = "image du contact"
-        // photo_contact.style.display = "block"
         submit.style.display = "none"
         reinit.style.display = "none"
         edit.style.display = "block"
         exit.style.display = "block"
         indexo = array_contact.indexOf(element)
-        console.log('index : ', indexo);
-        console.log("on va voir :", first_name.value);
     })
 }
 edit.addEventListener("click", BTN_EDIT)
@@ -336,20 +307,13 @@ function BTN_EDIT() {
         Email: email.value,
         Group: group.value,
         Source: ss
-        // Source : source
     }
-    console.log(object_edit);
-    console.log(array_contact);
     edit.style.display = "none"
     submit.style.display = "block"
     exit.style.display = "none"
     reinit.style.display = "block"
-    if (numbers.value == n) {
-        kl = false
-    }
-    if (email.value == m) {
-        k = false
-    }
+    if (numbers.value == n) { kl = false }
+    if (email.value == m) { k = false }
     if (VALIDATION(object_edit.Source)) {
         array_contact[indexo] = object_edit
         SHOW_CONTACT()
@@ -373,24 +337,18 @@ exit.addEventListener("click", function () {
 })
 function ICON_DELETE(icon_delete, index) {
     icon_delete.addEventListener("click", function () {
-        // let index = array_contact.indexOf(element)
         if (confirm("Etes-vous sûr de vouloir supprimer") == true) {
             array_contact.splice(index, 1)
             SHOW_CONTACT()
-            REINIT()
-            edit.style.display = "none"
-            submit.style.display = "block"
-            exit.style.display = "none"
-            reinit.style.display = "block"
-            console.log(array_contact)
+            exit.click()
         }
     })
 }
 
-// const template_contact = document.querySelector("#template_contact")
-// const clone = document.importNode(template_contact.content, true)
-// console.log(clone);
-// const photo_contact_list = clone.querySelector("#photo_contact_list")
-// const para = clone.querySelector("#para")
-// const paragraph_num_email = clone.querySelector("#paragraph_num_email")
-// const paragraph_bio = clone.querySelector("#paragraph_bio")
+
+// let index = array_contact.indexOf(element) (icone delete)
+
+// instruction_img.style.display = "none"
+// photo_contact.src = Source_img
+// photo_contact.alt = "image du contact"
+// photo_contact.style.display = "block"
