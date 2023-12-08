@@ -1,26 +1,4 @@
-//Fonction STANDARD
-function INPUT_STYLE(input, color) {
-    input.style.border = `2px solid ${color}`
-    input.style.borderRadius = "5px"
-}
-function INIT(input, message) {
-    input.style.border = ""
-    input.style.borderRadius = ""
-    message.innerText = ""
-}
-function COMPARE(input, message, min, max, color) {
-    let value_id = input.value.trim()
-    if (value_id.length < min) {
-        INPUT_STYLE(input, color)
-        message.innerText = `Nombre de caractere insuffisant, ne doit pas etre en-deçà de ${min} caracteres`
-    } else if (value_id.length > max) {
-        INPUT_STYLE(input, color)
-        message.innerText = `Nombre de caractere insuffisant, ne doit pas etre au delà de ${max} caracteres`
-    } else {
-        INIT(input, message)
-        return true
-    }
-}
+import { INPUT_STYLE, INIT, COMPARE } from './function.js'
 // Champ PRENOM
 const first_name = document.getElementById("first_name")
 const message_fn = document.getElementById("message_fn")
@@ -36,17 +14,17 @@ names.addEventListener("blur", function () {
 // Champ TEL
 const numbers = document.getElementById("numbers")
 const message_num = document.getElementById("message_num")
+let kl = true
 numbers.addEventListener('blur', function () {
     NUMBERS()
 })
-let kl = true
 function NUMBERS() {
     let regex = /^(084|085|080|089|081|082|099|097|090)/
     let reg = /\d{10}$/
     if (isNaN(numbers.value)) {
         INPUT_STYLE(numbers, 'red')
         message_num.innerText = 'Le numero de téléphone ne contient que des chiffres';
-    } else if (!reg.test(numbers.value)) {
+    } else if (numbers.value.length != 10 || !reg.test(numbers.value)) {
         INPUT_STYLE(numbers, 'red')
         message_num.innerText = 'Erreur, renseigner un numéro de téléphone avec 10 chiffres ';
     } else if (EXIST_NUM()) {
@@ -74,8 +52,8 @@ group.addEventListener("blur", function () {
 // Champ E-MAIL
 const email = document.querySelector('#email')
 const message_em = document.querySelector('#message_em')
-email.addEventListener('blur', EMAIL)
 let k = true
+email.addEventListener('blur', EMAIL)
 function EMAIL() {
     let Regex = /^[A-Za-z0-9\.-\_]+@[A-Za-z0-9]+(\.)[A-Za-z0-9]{2,}$/
     if (!Regex.test(email.value)) {
@@ -100,7 +78,7 @@ function EXIST_EMAIL() {
 const bio = document.querySelector('#text_bio')
 const message_bio = document.getElementById('message_bio')
 bio.addEventListener('input', function () {
-    COMPARE(bio, message_bio, 10, 200, 'red')
+    COMPARE(bio, message_bio, 10, 150, 'red')
 })
 // Champs IMAGE
 const drop_image = document.querySelector("#drop_image")
@@ -112,11 +90,11 @@ let source, ss, validate_img
 drop_image.addEventListener("dragover", (event) => {
     event.preventDefault()
     INPUT_STYLE(drop_image, '#0880D6')
-    instruction_img.style.display = "none"
 })
 drop_image.addEventListener("dragleave", () => {
     drop_image.style.border = ""
-    instruction_img.style.display = "block"
+    instruction_img.style.display = "none"
+    photo_contact.style.display = "block"
 })
 input_img.addEventListener("change", () => {
     let imgs = input_img.files[0]
@@ -126,10 +104,10 @@ function PHOTO(file) {
     let fileType = file.type
     let tableRegex = /png$|jpe?g$/
     if (!tableRegex.test(fileType)) {
-        INPUT_STYLE(drop_image)
+        INPUT_STYLE(drop_image, 'red')
         message_img.innerText = "Format de l'image invalide"
     } else if (file.size > 5242880) {
-        INPUT_STYLE(drop_image)
+        INPUT_STYLE(drop_image, 'red')
         message_img.innerText = "Taille de l'image depasse 5Mo"
     } else {
         let reader = new FileReader()
@@ -210,25 +188,6 @@ function SHOW_CONTACT() {
     rt.innerHTML = ""
     for (let i = 0; i < array_contact.length; i++) {
         let element = array_contact[i];
-        // const template_contact = document.querySelector("#template_contact")
-        // const clone = document.importNode(template_contact.content, true)
-        // console.log(clone);
-        // console.log(clone.innerHTML);
-        // const contact_list = document.querySelector("#contact_list")
-        // const photo_contact_list = clone.querySelector("#photo_contact_list")
-        // photo_contact_list.src = Source_img
-        // photo_contact_list.alt = "photo du contact"
-        // const para = clone.querySelector("#para")
-        // para.textContent = `${First_Name} ${Names}-${Group}`
-        // const paragraph_num_email = clone.querySelector("#paragraph_num_email")
-        // paragraph_num_email.textContent = `${Numbers}-${Email}`
-        // const paragraph_bio = clone.querySelector("#paragraph_bio")
-        // paragraph_bio.textContent = `${Bio}`
-        // rt.appendChild(contact_list)
-        // const icon_delete = document.querySelector("#delete")
-        // console.log(icon_delete);
-        // const icone_edit = document.querySelector("#editz")
-
         const div = document.createElement("div")
         rt.appendChild(div)
         div.classList.add("contact_list")
@@ -275,9 +234,13 @@ function SHOW_CONTACT() {
         ICONE_EDIT(icone_edit, element.First_Name, element.Names, element.Numbers, element.Bio, element.Email, element.Group, element, element.Source)
     }
 }
-let indexo
-let n
-let m
+function INIT_IMG(x, y) {
+    edit.style.display = x
+    submit.style.display = y
+    exit.style.display = x
+    reinit.style.display = y
+}
+let indexo, n, m
 function ICONE_EDIT(icone_edit, First_Name, Names, Numbers, Bio, Email, Group, element, Source_img) {
     icone_edit.addEventListener("click", function () {
         REINIT()
@@ -289,17 +252,15 @@ function ICONE_EDIT(icone_edit, First_Name, Names, Numbers, Bio, Email, Group, e
         bio.value = Bio
         email.value = Email
         group.value = Group
+        first_name.focus()
         ss = Source_img
-        submit.style.display = "none"
-        reinit.style.display = "none"
-        edit.style.display = "block"
-        exit.style.display = "block"
+        INIT_IMG("block", "none")
         indexo = array_contact.indexOf(element)
     })
 }
 edit.addEventListener("click", BTN_EDIT)
 function BTN_EDIT() {
-    object_edit = {
+    let object_edit = {
         First_Name: first_name.value,
         Names: names.value,
         Numbers: numbers.value,
@@ -308,10 +269,7 @@ function BTN_EDIT() {
         Group: group.value,
         Source: ss
     }
-    edit.style.display = "none"
-    submit.style.display = "block"
-    exit.style.display = "none"
-    reinit.style.display = "block"
+    INIT_IMG("none", "block")
     if (numbers.value == n) { kl = false }
     if (email.value == m) { k = false }
     if (VALIDATION(object_edit.Source)) {
@@ -320,24 +278,15 @@ function BTN_EDIT() {
         REINIT()
         kl = true
         k = true
-    }
-    else {
-        submit.style.display = "none"
-        reinit.style.display = "none"
-        edit.style.display = "block"
-        exit.style.display = "block"
-    }
+    } else { INIT_IMG("block", "none") }
 }
 exit.addEventListener("click", function () {
     REINIT()
-    edit.style.display = "none"
-    submit.style.display = "block"
-    exit.style.display = "none"
-    reinit.style.display = "block"
+    INIT_IMG("none", "block")
 })
 function ICON_DELETE(icon_delete, index) {
     icon_delete.addEventListener("click", function () {
-        if (confirm("Etes-vous sûr de vouloir supprimer") == true) {
+        if (confirm("Etes-vous sûr de vouloir supprimer ?") == true) {
             array_contact.splice(index, 1)
             SHOW_CONTACT()
             exit.click()
@@ -352,3 +301,38 @@ function ICON_DELETE(icon_delete, index) {
 // photo_contact.src = Source_img
 // photo_contact.alt = "image du contact"
 // photo_contact.style.display = "block"
+
+
+
+
+// submit.style.display = "none"
+// reinit.style.display = "none"
+// edit.style.display = "block"
+// exit.style.display = "block"
+
+
+// edit.style.display = "none"
+// submit.style.display = "block"
+// exit.style.display = "none"
+// reinit.style.display = "block"
+
+
+
+// const template_contact = document.querySelector("#template_contact")
+// const clone = document.importNode(template_contact.content, true)
+// console.log(clone);
+// console.log(clone.innerHTML);
+// const contact_list = document.querySelector("#contact_list")
+// const photo_contact_list = clone.querySelector("#photo_contact_list")
+// photo_contact_list.src = Source_img
+// photo_contact_list.alt = "photo du contact"
+// const para = clone.querySelector("#para")
+// para.textContent = `${First_Name} ${Names}-${Group}`
+// const paragraph_num_email = clone.querySelector("#paragraph_num_email")
+// paragraph_num_email.textContent = `${Numbers}-${Email}`
+// const paragraph_bio = clone.querySelector("#paragraph_bio")
+// paragraph_bio.textContent = `${Bio}`
+// rt.appendChild(contact_list)
+// const icon_delete = document.querySelector("#delete")
+// console.log(icon_delete);
+// const icone_edit = document.querySelector("#editz")

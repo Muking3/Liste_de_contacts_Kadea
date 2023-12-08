@@ -269,7 +269,7 @@ label {
 
     .contact_list {
         /* padding: 20px; */
-        height: 240px;
+        height: auto;
         display: flex;
         gap: 0px;
         flex-direction: column;

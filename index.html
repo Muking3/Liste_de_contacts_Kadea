@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carnet des contacts</title>
     <link rel="stylesheet" href="style.css">
-    <script src="app.js" defer></script>
+    <script src="app.js" type="module" defer></script>
 </head>
 
 <body>
@@ -79,7 +79,30 @@
                     <div class="contact_title container-bgc">
                         <h2 class="title-fs color_text">Liste des contacts</h2>
                     </div>
-                    <div id="rt"></div>
+                    <div id="rt">
+                    </div>
+                    <template id="template_contact">
+                        <div class="contact_list">
+                            <div class="contact_list_img">
+                                <img src="#" alt="" id="photo_contact_list" class="position_img">
+                            </div>
+                            <div class="contact_list_text">
+                                <div>
+                                    <div class="contact_text">
+                                        <p id="para"></p>
+                                        <div class="div_part1">
+                                            <!-- <img id="space_between_icon" src="edit icon.svg" alt="icone modifier">
+                                            <img src="delete icon.svg" alt="icone supprimer" id="delete"> -->
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p id="paragraph_num_email"></p>
+                                        <p id="paragraph_bio"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
                 </div>
             </div>
         </main>
