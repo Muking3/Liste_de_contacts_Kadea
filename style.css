@@ -122,6 +122,9 @@ label {
     border: none;
     padding: 10px 45px 10px 45px;
 }
+.btn_border:hover {
+    cursor: pointer;
+}
 
 .btn_reset {
     background-color: #FF3838;
@@ -175,7 +178,8 @@ label {
 
 .contact_list {
     padding: 20px;
-    height: 165px;
+    /* height: 165px; */
+    height: auto;
     display: flex;
     gap: 57px;
     /* justify-content: space-between; */
@@ -212,6 +216,7 @@ label {
 .contact_text p {
     color: #555;
     font-weight: 500;
+    width: 93%;
 }
 
 

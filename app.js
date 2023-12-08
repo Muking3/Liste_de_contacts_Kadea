@@ -14,7 +14,7 @@ names.addEventListener("blur", function () {
 // Champ TEL
 const numbers = document.getElementById("numbers")
 const message_num = document.getElementById("message_num")
-let kl = true
+let exist_num = true
 numbers.addEventListener('blur', function () {
     NUMBERS()
 })
@@ -40,7 +40,7 @@ function NUMBERS() {
 }
 function EXIST_NUM() {
     if (array_contact.some(obj => obj.Numbers === numbers.value)) {
-        return kl
+        return exist_num
     }
 }
 // Champ GROUPE
@@ -52,11 +52,12 @@ group.addEventListener("blur", function () {
 // Champ E-MAIL
 const email = document.querySelector('#email')
 const message_em = document.querySelector('#message_em')
-let k = true
+let exist_email = true
 email.addEventListener('blur', EMAIL)
 function EMAIL() {
-    let Regex = /^[A-Za-z0-9\.-\_]+@[A-Za-z0-9]+(\.)[A-Za-z0-9]{2,}$/
-    if (!Regex.test(email.value)) {
+    let Regex = /^[A-Za-z0-9\.\_\-]+[A-Za-z0-9]@[A-Za-z0-9]+(\.)[A-Za-z0-9]{2,}$/
+    let reg = /\w{320}/
+    if (!Regex.test(email.value) || reg.test(email.value)) {
         INPUT_STYLE(email, 'red')
         message_em.innerText = 'Adresse invalide!'
     }
@@ -71,7 +72,7 @@ function EMAIL() {
 }
 function EXIST_EMAIL() {
     if (array_contact.some(obj => obj.Email === email.value)) {
-        return k
+        return exist_email
     }
 }
 //Champs BiO
@@ -86,7 +87,8 @@ const input_img = document.querySelector("#input_img")
 const message_img = document.querySelector("#message_img")
 const instruction_img = document.querySelector("#instruction_img")
 const photo_contact = document.querySelector("#photo_contact")
-let source, ss, validate_img
+let source = ""
+let src_edit, validate_img
 drop_image.addEventListener("dragover", (event) => {
     event.preventDefault()
     INPUT_STYLE(drop_image, '#0880D6')
@@ -121,7 +123,7 @@ function PHOTO(file) {
             message_img.innerText = ""
             drop_image.style.border = ""
             source = fileSource
-            ss = fileSource
+            src_edit = fileSource
             validate_img = true
         }
     }
@@ -129,7 +131,7 @@ function PHOTO(file) {
 // Envoie du formulaire
 const array_contact = []
 const form = document.querySelector("form")
-const rt = document.querySelector("#rt")
+const contact_view = document.querySelector("#contact_view")
 const edit = document.querySelector("#edit")
 edit.style.display = "none"
 const submit = document.querySelector("#submit")
@@ -171,6 +173,7 @@ function REINIT() {
     INIT(numbers, message_num)
     INIT(email, message_em)
     INIT(bio, message_bio)
+    INIT(drop_image, message_img)
     first_name.value = ''
     names.value = ''
     numbers.value = ''
@@ -185,11 +188,11 @@ function REINIT() {
     photo_contact.alt = ""
 }
 function SHOW_CONTACT() {
-    rt.innerHTML = ""
+    contact_view.innerHTML = ""
     for (let i = 0; i < array_contact.length; i++) {
         let element = array_contact[i];
         const div = document.createElement("div")
-        rt.appendChild(div)
+        contact_view.appendChild(div)
         div.classList.add("contact_list")
         const div_list_img = document.createElement("div")
         div.appendChild(div_list_img)
@@ -253,7 +256,7 @@ function ICONE_EDIT(icone_edit, First_Name, Names, Numbers, Bio, Email, Group, e
         email.value = Email
         group.value = Group
         first_name.focus()
-        ss = Source_img
+        src_edit = Source_img
         INIT_IMG("block", "none")
         indexo = array_contact.indexOf(element)
     })
@@ -267,17 +270,17 @@ function BTN_EDIT() {
         Bio: bio.value,
         Email: email.value,
         Group: group.value,
-        Source: ss
+        Source: src_edit
     }
     INIT_IMG("none", "block")
-    if (numbers.value == n) { kl = false }
-    if (email.value == m) { k = false }
+    if (numbers.value == n) { exist_num = false }
+    if (email.value == m) { exist_email = false }
     if (VALIDATION(object_edit.Source)) {
         array_contact[indexo] = object_edit
         SHOW_CONTACT()
         REINIT()
-        kl = true
-        k = true
+        exist_num = true
+        exist_email = true
     } else { INIT_IMG("block", "none") }
 }
 exit.addEventListener("click", function () {
