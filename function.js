@@ -1,4 +1,3 @@
-//Fonction STANDARD
 export function INPUT_STYLE(input, color) {
     input.style.border = `2px solid ${color}`
     input.style.borderRadius = "5px"

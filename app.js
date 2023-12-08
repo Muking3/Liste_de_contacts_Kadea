@@ -1,17 +1,14 @@
 import { INPUT_STYLE, INIT, COMPARE } from './function.js'
-// Champ PRENOM
 const first_name = document.getElementById("first_name")
 const message_fn = document.getElementById("message_fn")
 first_name.addEventListener("blur", function () {
     COMPARE(first_name, message_fn, 3, 50, 'red')
 })
-// Champ NOM
 const names = document.getElementById("names")
 const message_n = document.getElementById("message_n")
 names.addEventListener("blur", function () {
     COMPARE(names, message_n, 3, 50, 'red')
 })
-// Champ TEL
 const numbers = document.getElementById("numbers")
 const message_num = document.getElementById("message_num")
 let exist_num = true
@@ -43,13 +40,11 @@ function EXIST_NUM() {
         return exist_num
     }
 }
-// Champ GROUPE
 const group = document.getElementById('group')
 const message_g = document.getElementById('message_g')
 group.addEventListener("blur", function () {
     COMPARE(group, message_g, 0, 10, "red")
 })
-// Champ E-MAIL
 const email = document.querySelector('#email')
 const message_em = document.querySelector('#message_em')
 let exist_email = true
@@ -75,13 +70,11 @@ function EXIST_EMAIL() {
         return exist_email
     }
 }
-//Champs BiO
 const bio = document.querySelector('#text_bio')
 const message_bio = document.getElementById('message_bio')
 bio.addEventListener('input', function () {
     COMPARE(bio, message_bio, 10, 150, 'red')
 })
-// Champs IMAGE
 const drop_image = document.querySelector("#drop_image")
 const input_img = document.querySelector("#input_img")
 const message_img = document.querySelector("#message_img")
@@ -128,7 +121,6 @@ function PHOTO(file) {
         }
     }
 }
-// Envoie du formulaire
 const array_contact = []
 const form = document.querySelector("form")
 const contact_view = document.querySelector("#contact_view")
@@ -154,7 +146,6 @@ submit.addEventListener("click", function (e) {
         REINIT()
     }
 })
-// Validation_img du formulaire (Liste des contacts)
 function VALIDATION(Source) {
     if (Source.length == 0) {
         INPUT_STYLE(drop_image, 'red')
@@ -163,7 +154,6 @@ function VALIDATION(Source) {
         return true
     }
 }
-// Reinitialisation de formulaire.
 const reinit = document.getElementById('reinit');
 reinit.addEventListener('click', REINIT)
 function REINIT() {
@@ -296,46 +286,3 @@ function ICON_DELETE(icon_delete, index) {
         }
     })
 }
-
-
-// let index = array_contact.indexOf(element) (icone delete)
-
-// instruction_img.style.display = "none"
-// photo_contact.src = Source_img
-// photo_contact.alt = "image du contact"
-// photo_contact.style.display = "block"
-
-
-
-
-// submit.style.display = "none"
-// reinit.style.display = "none"
-// edit.style.display = "block"
-// exit.style.display = "block"
-
-
-// edit.style.display = "none"
-// submit.style.display = "block"
-// exit.style.display = "none"
-// reinit.style.display = "block"
-
-
-
-// const template_contact = document.querySelector("#template_contact")
-// const clone = document.importNode(template_contact.content, true)
-// console.log(clone);
-// console.log(clone.innerHTML);
-// const contact_list = document.querySelector("#contact_list")
-// const photo_contact_list = clone.querySelector("#photo_contact_list")
-// photo_contact_list.src = Source_img
-// photo_contact_list.alt = "photo du contact"
-// const para = clone.querySelector("#para")
-// para.textContent = `${First_Name} ${Names}-${Group}`
-// const paragraph_num_email = clone.querySelector("#paragraph_num_email")
-// paragraph_num_email.textContent = `${Numbers}-${Email}`
-// const paragraph_bio = clone.querySelector("#paragraph_bio")
-// paragraph_bio.textContent = `${Bio}`
-// rt.appendChild(contact_list)
-// const icon_delete = document.querySelector("#delete")
-// console.log(icon_delete);
-// const icone_edit = document.querySelector("#editz")
