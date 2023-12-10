@@ -158,13 +158,13 @@ label {
 }
 
 .contact_list_img {
-    width: 165px;
+    height: 165px;
 }
 
 .contact_list_img img {
     width: 165px;
     border-radius: 50%;
-    height: 165px;
+    height: 100%;
 }
 
 .contact_list_text {
