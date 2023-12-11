@@ -265,9 +265,10 @@ function BTN_EDIT() {
         Source: src_edit
     }
     INIT_IMG("none", "block")
-    if (numbers.value == n) { exist_num = false }
-    if (email.value == m) { exist_email = false }
-    if (VALIDATION(object_edit.Source)) {
+    if (numbers.value == n && email.value == m) {
+        exist_num = false
+        exist_email = false
+    } if (VALIDATION(object_edit.Source)) {
         array_contact[indexo] = object_edit
         SHOW_CONTACT()
         REINIT()
