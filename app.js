@@ -152,7 +152,7 @@ function VALIDATION(Source) {
         message_img.innerText = "Inserer une image"
     } else if (COMPARE(first_name, message_fn, 3, 50, 'red') && COMPARE(names, message_n, 3, 50, 'red') && NUMBERS() && COMPARE(bio, message_bio, 10, 150, "red") && COMPARE(group, message_g, 0, 10, "red") && EMAIL() && validate_img) {
         return true
-    }else {
+    } else {
         alert("Veillez remplir correctement le formulaie")
     }
 }
@@ -265,10 +265,9 @@ function BTN_EDIT() {
         Source: src_edit
     }
     INIT_IMG("none", "block")
-    if (numbers.value == n && email.value == m) {
-        exist_num = false
-        exist_email = false
-    } if (VALIDATION(object_edit.Source)) {
+    if (numbers.value == n) { exist_num = false }
+    if (email.value == m) { exist_email = false }
+    if (VALIDATION(object_edit.Source)) {
         array_contact[indexo] = object_edit
         SHOW_CONTACT()
         REINIT()
