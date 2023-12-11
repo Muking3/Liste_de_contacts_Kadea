@@ -150,8 +150,10 @@ function VALIDATION(Source) {
     if (Source.length == 0) {
         INPUT_STYLE(drop_image, 'red')
         message_img.innerText = "Inserer une image"
-    } else if (COMPARE(first_name, message_fn, 3, 50, 'red') && COMPARE(names, message_n, 3, 50, 'red') && NUMBERS() && COMPARE(bio, message_bio, 10, 200) && COMPARE(group, message_g, 0, 10, "red") && EMAIL() && validate_img) {
+    } else if (COMPARE(first_name, message_fn, 3, 50, 'red') && COMPARE(names, message_n, 3, 50, 'red') && NUMBERS() && COMPARE(bio, message_bio, 10, 150, "red") && COMPARE(group, message_g, 0, 10, "red") && EMAIL() && validate_img) {
         return true
+    }else {
+        alert("Veillez remplir correctement le formulaie")
     }
 }
 const reinit = document.getElementById('reinit');

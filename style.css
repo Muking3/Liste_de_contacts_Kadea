@@ -158,13 +158,13 @@ label {
 }
 
 .contact_list_img {
-    width: 165px;
+    height: 165px;
 }
 
 .contact_list_img img {
     width: 165px;
     border-radius: 50%;
-    height: 165px;
+    height: 100%;
 }
 
 .contact_list_text {
@@ -181,7 +181,7 @@ label {
 .contact_text p {
     color: #555;
     font-weight: 500;
-    width: 93%;
+    width: 90%;
 }
 
 #paragraph_num_email {
