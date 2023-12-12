@@ -204,7 +204,7 @@ label {
     z-index: 1;
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1200px) {
     .container_contact {
         display: flex;
         flex-direction: column;
